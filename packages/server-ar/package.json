@@ -18,7 +18,8 @@
         "test:cov": "jest --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
         "test:e2e": "jest --config ./test/jest-e2e.json",
-        "typeorm": " ./node_modules/.bin/ts-node ./node_modules/.bin/typeorm"
+        "typeorm": " ./node_modules/.bin/ts-node ./node_modules/.bin/typeorm",
+        "heroku-postbuild": "echo 'custom build' && npm run build"
     },
     "dependencies": {
         "@cypress/code-coverage": "^1.10.2",
