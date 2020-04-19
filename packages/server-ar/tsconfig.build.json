@@ -1,6 +1,5 @@
 {
   "extends": "./tsconfig.json",
   "skipLibCheck": true,
-  "types": ["react", "jest"],
   "exclude": ["node_modules", "test", "**/*spec.ts"]
 }

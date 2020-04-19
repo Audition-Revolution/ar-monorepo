@@ -1,7 +1,7 @@
 import { Injectable, UnprocessableEntityException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { In, Like, Repository } from "typeorm";
-import * as uuidv4 from "uuid/v4";
+import uuidv4 from "uuid/v4";
 import { SpecialSkill } from "./SpecialSkills.entity";
 import { ActorTag } from "./features/actor-tag/ActorTag.entity";
 import {

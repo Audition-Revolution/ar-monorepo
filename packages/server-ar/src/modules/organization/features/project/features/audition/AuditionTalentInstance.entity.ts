@@ -12,7 +12,7 @@ import {AuditionTimeSlot} from "./audition-time-slot/AuditionTimeSlot.entity";
 import {User} from "../../../../../user/User.entity";
 import {GuestUser} from "../../../../../user/GuestUser.entity";
 import {Audition} from "./Audition.entity";
-import * as uuidV4 from "uuid/v4";
+import uuidV4 from "uuid/v4";
 import {Field, ObjectType} from "type-graphql";
 
 export enum TALENT_INSTANCE_STATUS {

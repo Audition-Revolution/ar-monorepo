@@ -4,7 +4,7 @@ import {ApiUseTags} from "@nestjs/swagger";
 import {AuditionTimeSlotService} from "./audition-time-slot/audition-time-slot.service";
 import {AuthGuard} from "@nestjs/passport";
 import {S3Service} from "../../../../../s3/s3.service";
-import * as PDFDocument from "pdfkit";
+import PDFDocument from "pdfkit";
 import axios from "axios";
 import {User} from "../../../../../user/User.entity";
 

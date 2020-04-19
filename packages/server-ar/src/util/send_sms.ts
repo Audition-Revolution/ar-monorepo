@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import * as twilio from "twilio";
+import twilio from "twilio";
 
 dotenv.config();
 

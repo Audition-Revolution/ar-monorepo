@@ -1,5 +1,5 @@
-import * as csv from "csv-parser";
 import * as fs from "fs";
+import csv from "csv-parser";
 import { resolve } from "path";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "../app.module";
