@@ -8,7 +8,7 @@
     "client": "yarn workspace ar-client start",
     "server": "yarn workspace server-ar start:dev",
     "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "heroku-postbuild": "echo 'custom build' && cd packages/server-ar && npm build"
+    "build": "echo 'custom build' && cd packages/server-ar && npm run build"
   },
   "dependencies": {
     "concurrently": "^5.1.0"
