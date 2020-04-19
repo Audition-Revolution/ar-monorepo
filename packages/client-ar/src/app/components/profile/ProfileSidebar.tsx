@@ -12,17 +12,10 @@ import {
     makeStyles,
     createStyles,
     Theme,
-    Dialog,
-    DialogContent,
-    DialogActions,
-    Button,
-    DialogTitle,
-    Typography, Chip
+    Chip
 } from "@material-ui/core";
 import {GlobalContext} from "context/globalContext";
-import NotesOnActor from "../audition/NotesOnActor";
 import EditUserModal from "./EditUserModal";
-import TagsOnActor from "../audition/TagsOnActor";
 import AddTags from "./AddTags";
 import AddNotes from "./AddNotes";
 
@@ -91,7 +84,6 @@ const AttributesModal: FC<any> = props => {
 };
 
 const ProfileSidebar: FC<any> = (props: any) => {
-    const classes = useStyles();
     const {userType} = useContext(GlobalContext);
 
     const canAddNotes = userType.includes("theatre");

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { GlobalContext } from "../../../context/globalContext";
-import makeStyles from "@material-ui/styles/makeStyles";
 import {
   AppBar,
   Button,
@@ -16,19 +15,10 @@ import UserMenu from "app/components/shared/UserMenu";
 import ArLogo from "../../../static/AR_Logo.png";
 import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
 
-const useStyles = makeStyles((theme: any) => ({
-  separator: {
-    width: 1,
-    height: 64,
-    backgroundColor: theme.palette.divider
-  }
-}));
-
 const Header = (props: any) => {
   const { userType } = useContext(GlobalContext);
   const { push } = useHistory();
   const [dbButtonToggle, setDbButtonToggle] = useState(null as any);
-  const classes = useStyles(props);
   if (
     props.location.pathname === "/login" ||
     props.location.pathname === "/register" ||

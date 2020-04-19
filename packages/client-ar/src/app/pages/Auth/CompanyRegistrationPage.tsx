@@ -227,7 +227,7 @@ function CompanyRegistrationPage(props: any) {
                         label: (
                           <span>
                             I read and accept{" "}
-                            <a onClick={() => setOpen(true)}>
+                            <a href='javascript:void(0);' onClick={() => setOpen(true)}>
                               terms and conditions
                             </a>
                           </span>

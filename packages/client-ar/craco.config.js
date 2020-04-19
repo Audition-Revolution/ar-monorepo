@@ -44,7 +44,7 @@ module.exports = {
                 loader: require.resolve('graphql-tag/loader'),
             });
             config.resolve.alias = {
-                'react-dom': path.resolve(path.join(__dirname, 'node_modules', 'react-dom'))
+                'react-dom': path.resolve(path.join(__dirname, '../../node_modules', 'react-dom'))
             };
             config.optimization = {
                 splitChunks: {

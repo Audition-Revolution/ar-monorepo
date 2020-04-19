@@ -13,78 +13,67 @@ interface DataResponse {
   "Last Name": string;
   "Primary Phone": string;
   "Email Address": string;
-  "AEA": string;
+  "Union": string;
   "Ethnicity": string;
   "Gender": string;
-  "Musical Theatre?": string;
-  "Instrument?": string;
-  "T.O. Vet?": string;
-  "Readiness": string;
+  "Musical Theatre Tag": string;
+  "Instrument Tag": string;
+  "T.O. Vet Tag": string;
+  "Readiness Tags": string;
 }
 
 async function main() {
   const app = await NestFactory.create(AppModule);
   const userService = app.get(UserService);
   const tagService = app.get(ActorTagService);
-  const breakdownService = app.get(BreakdownService)
+  const breakdownService = app.get(BreakdownService);
   const notAdded = [];
   const jamie = await userService.findByEmail("king0120@gmail.com");
   const clifton = await userService.findByEmail("cliftonguterman@gmail.com");
   async function addTagsForUser(user, data) {
-    tagService.createTag({
+    await tagService.createTag({
       owner: clifton.id,
       for: user.id,
-      tag: data.Readiness,
+      tag: data["Readiness Tags"],
     });
-    if (data["T.O. Vet?"].length > 0) {
-      tagService.createTag({
+    if (data["T.O. Vet Tag"].length > 0) {
+      await   tagService.createTag({
         owner: clifton.id,
         for: user.id,
         tag: "T.O. Vet",
       });
     }
-    tagService.createTag({
+    if (data["Musical Theatre Tag"].length > 0) {
+      await tagService.createTag({
+        owner: clifton.id,
+        for: user.id,
+        tag: "Musical Theatre",
+      });
+    }
+    if (data["Instrument Tag"].length > 0) {
+      await tagService.createTag({
+        owner: clifton.id,
+        for: user.id,
+        tag: "Instrument",
+      });
+    }
+    await  tagService.createTag({
       owner: clifton.id,
       for: user.id,
       tag: "My Talent",
     });
-    tagService.createTag({
+    await tagService.createTag({
       owner: jamie.id,
       for: user.id,
       tag: "Clifton Talent",
     });
   }
-  async function addBreakdown(user, data){
+  async function addBreakdown(user, data) {
     const breakdown = {} as any;
     breakdown.gender = [data.Gender === "male" ? "Male" : "Female"];
-    // African American
-    // Asian
-    // Caucasian
-    // Hispanic
-    // Latino
-    // Native American
-    // Alaskan Native
-    // Hawaiian
-    // Middle Eastern
-    // North African
-    // Multi-Cultural
-    switch (data.Ethnicity.toLowerCase()) {
-      case "arabic":
-      breakdown.ethnicity = ["Middle Eastern"];
-      case "asian":
-        breakdown.ethnicity = ["Asian"];
-      case "black":
-        breakdown.ethnicity = ["African American"];
-      case "indian":
-        breakdown.ethnicity = ["Indian"];
-      case "latinx":
-        breakdown.ethnicity = ["Latino"];
-      case "other":
-        breakdown.ethnicity = [];
-      case "white":
-        breakdown.ethnicity = ["Caucasian"];
-    }
-    await breakdownService.addUserBreakdown(breakdown, user)
+    breakdown.unions = [data.Union];
+    breakdown.ethnicity = [data.Ethnicity];
+    await breakdownService.addUserBreakdown(breakdown, user);
   }
   async function createNewUser(data: DataResponse) {
     const user = new User();
@@ -93,7 +82,7 @@ async function main() {
     user.displayName = user.firstName + " " + user.lastName;
     user.email = data["Email Address"].trim();
     user.gender = data.Gender === "male" ? Gender.Male : Gender.Female;
-    user.phoneNumber = data["Primary Phone"];
+    user.phoneNumber = data["Primary Phone"].replace(/-/g, "");
     user.password = "0";
     user.salt = "0";
     user.ghostAccount = true;
@@ -118,10 +107,11 @@ async function main() {
       }
       return userService.findByEmail(data["Email Address"].trim()).then(async user => {
         if (!user) {
+          console.log("new user");
           notAdded.push(data);
           await createNewUser(data);
         } else {
-          console.log(user.id);
+          console.log("existing user", user.id);
           await addTagsForUser(user, data);
         }
         console.log(notAdded.length + " new actors");
@@ -133,4 +123,46 @@ async function main() {
 
 }
 
-main();
+// main();
+async function findMissing() {
+  const app = await NestFactory.create(AppModule);
+  const userService = app.get(UserService);
+  const notAdded = [];
+  const totalUsers = [];
+  let rows = 0;
+  let found = 0;
+  const tagService = app.get(ActorTagService);
+  const clifton = await userService.findByEmail("cliftonguterman@gmail.com");
+  fs
+      .createReadStream(resolve(__dirname, "./cgActors.csv"))
+      .pipe(csv())
+      .on("data", async (data) => {
+        rows += 1;
+        if (!data["Email Address"]) {
+          return;
+        }
+        await userService.findByEmail(data["Email Address"].trim()).then(async user => {
+          try {
+            const tags = await tagService.getTagsForUser(clifton.id, user.id);
+            // console.log(tags)
+            if (tags.indexOf("My Talent") === -1) {
+
+              console.log("NO TAG FOR", user.email);
+            } else {
+              found += 1;
+              // console.log('tag found')
+            }
+            // console.log(tags)
+          } catch (err) {
+            console.log("CATCH")
+          }
+
+        });
+        console.log(rows, found)
+      })
+      .on("end", () => {
+        console.log("finished");
+      });
+}
+
+findMissing();

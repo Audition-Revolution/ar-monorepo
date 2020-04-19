@@ -70,7 +70,7 @@ const ExperienceList: FC<any> = ({
   useEffect(() => {
     const sorted = experiences.sort((a: any, b: any) => a.index - b.index);
     setExpItems(sorted);
-  }, [experiences.length]);
+  }, [experiences.length, experiences]);
 
   const onDragEnd = (result: any) => {
     const newOrder: any[] = [...expItems];
@@ -130,7 +130,7 @@ const ExperienceList: FC<any> = ({
         <DragDropContext onDragEnd={onDragEnd}>
           {reorderExperienceItems ? (
             <Droppable droppableId="experienceItemsDroppable">
-              {(provided: any, snapshot: any) => (
+              {(provided: any) => (
                 <List {...provided.droppableProps} ref={provided.innerRef}>
                   <ListItem>
                     <ListItemText>
@@ -152,7 +152,7 @@ const ExperienceList: FC<any> = ({
                   </ListItem>
                   {expItems.map((exp: any, index: number) => (
                     <Draggable key={exp.id} draggableId={exp.id} index={index}>
-                      {(provided, snapshot) => (
+                      {(provided) => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}

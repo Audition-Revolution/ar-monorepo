@@ -31,9 +31,10 @@ const MyTags = () => {
     const [tags, setTags] = useState({} as any);
     const classes = useStyles();
     const {loading, data} = useQuery(GET_TAGS_FOR_OWNER);
+    const fetchedTags = data?.getTagsForOwner;
     useEffect(() => {
         if (data?.getTagsForOwner) {
-            const tagsObject = data.getTagsForOwner.reduce((acc: any, val: any) => {
+            const tagsObject = fetchedTags.reduce((acc: any, val: any) => {
                 if (acc[val.tag]) {
                     acc[val.tag].push(val.for);
                 } else {
@@ -43,7 +44,7 @@ const MyTags = () => {
             }, {});
             setTags(tagsObject);
         }
-    }, [data, data?.getTagsForOwner]);
+    }, [data, fetchedTags]);
     if (loading) {
         return <h1>Loading</h1>;
     }

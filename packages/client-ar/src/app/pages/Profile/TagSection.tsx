@@ -1,5 +1,4 @@
 import {
-    Avatar,
     Button,
     Chip,
     ExpansionPanel,
@@ -63,10 +62,10 @@ const TagSection: FC<any> = ({tagName, users}) => {
                 <List>
                     {!users && <Typography variant={"body1"}>No Tags Found</Typography>}
                     {users &&
-                    users.map((user: any) => {
+                    users.map((user: any, index: number) => {
                         return (
                             <Chip
-                                key={user.id}
+                                key={user.id + index.toString()}
                                 // avatar={<Avatar src={user.profilePicture?.url}/>}
                                 onClick={() => push(`/profile/${user.id}`)}
                                 label={`${user.firstName} ${user.lastName}`}

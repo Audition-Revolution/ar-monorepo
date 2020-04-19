@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 const TagTable = ({ actors }: any) => {
   const { push } = useHistory();
   const [filter, setFilter] = React.useState('' as string | undefined);
-  const data = React.useMemo(() => actors, []);
+  const data = React.useMemo(() => actors, [actors]);
   const columns = React.useMemo(() => [
     { Header: "First Name", accessor: "firstName" },
     { Header: "Last Name", accessor: "lastName" },
@@ -20,27 +20,22 @@ const TagTable = ({ actors }: any) => {
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    pageOptions,
     page,
     state: { pageIndex, pageSize },
     gotoPage,
-    previousPage,
-    nextPage,
-    pageCount,
     setPageSize,
-    canPreviousPage,
-    canNextPage,
     setGlobalFilter,
-    filterValue
   }: any = useTable<{ pageIndex: number, pageSize: number }>(
     {
-      columns, data,
+      // @ts-ignore
+      columns,
+      data,
       initialState: { pageSize: 10 } as any,
     },
     useGlobalFilter,
     useSortBy,
     usePagination,
-  )
+  );
   return (
     <TableContainer component={Paper}>
       <div>
@@ -48,10 +43,10 @@ const TagTable = ({ actors }: any) => {
           value={filter || ''}
           onChange={async e => {
             if (e.target.value === '') {
-              await setFilter(undefined)
+              await setFilter(undefined);
               return setGlobalFilter(filter)
             }
-            await setFilter(e.target.value)
+            await setFilter(e.target.value);
             setGlobalFilter(filter) // Set undefined to remove the filter entirely
           }}
           placeholder={`Search ${actors.length} records...`}
@@ -75,7 +70,7 @@ const TagTable = ({ actors }: any) => {
         </TableHead>
         <TableBody {...getTableBodyProps()}>
           {page.map((row: any) => {
-            prepareRow(row)
+            prepareRow(row);
             return (
               <TableRow {...row.getRowProps()} hover role="checkbox" tabIndex={-1}>
                 {row.cells.map((cell: any) => {
@@ -97,15 +92,15 @@ const TagTable = ({ actors }: any) => {
       </Table>
     </TableContainer>
   );
-}
+};
 const TagTablePage = (props: any) => {
   const { loading, data } = useQuery(GET_TAGS_FOR_OWNER);
   const currentTag = props.match.params.tagName;
   if (loading) {
     return <h1>Loading</h1>
   }
-  const actors = data.getTagsForOwner.filter((tag: any) => tag.tag === currentTag).map((tag: any) => tag.for)
-  console.log(actors)
+  const actors = data.getTagsForOwner.filter((tag: any) => tag.tag === currentTag).map((tag: any) => tag.for);
+  console.log(actors);
   return (
     <Container>
       <Typography variant="h4">{currentTag}</Typography>

@@ -115,7 +115,7 @@ const App = (props: any) => {
         } else if (!loading && !data) {
             setUserId("none");
         }
-    }, [data, setUserId, loading, setUserType, setDisplayName]);
+    }, [data, setUserId, loading, setUserType, setDisplayName, setTheatreVerified, setUserEmail, setVerified]);
     if (loading) {
         return (
             <div className="flex flex-1 flex-col items-center justify-center">
@@ -124,7 +124,7 @@ const App = (props: any) => {
                 </Typography>
                 <LinearProgress className="w-xs" color="secondary"/>
             </div>
-        );
+        )
     } else {
         return (
             <>

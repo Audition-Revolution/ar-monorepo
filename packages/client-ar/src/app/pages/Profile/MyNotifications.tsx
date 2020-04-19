@@ -1,27 +1,10 @@
-import React, { useContext } from "react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { GlobalContext } from "context/globalContext";
-import { Link } from "react-router-dom";
-import {
-  Container,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  makeStyles,
-  Paper,
-  Typography
-} from "@material-ui/core";
-import clsx from "clsx";
-import MarkunreadIcon from "@material-ui/icons/Markunread";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    height: "80%"
-  }
-}));
+// const useStyles = makeStyles(() => ({
+//   root: {
+//     height: "80%"
+//   }
+// }));
 
 const MyNotifications = () => {
   // const { userId } = useContext(GlobalContext);

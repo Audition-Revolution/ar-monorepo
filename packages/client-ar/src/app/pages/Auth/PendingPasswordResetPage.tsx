@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    Button,
     Card,
     CardContent,
     Theme,
@@ -11,8 +10,6 @@ import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import { Animate } from "./SharedAuth";
 import ARLogo from "../../../static/AR_Logo.png";
-import arAxios from "../../../utils/axiosHelper";
-import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -32,17 +29,6 @@ interface PendingVerificationProps {
 
 function PendingPasswordResetPage(props: PendingVerificationProps) {
     const classes = useStyles();
-    const { enqueueSnackbar } = useSnackbar();
-    function sendVerificationEmail() {
-        arAxios.get("/auth/resendVerification");
-        enqueueSnackbar("Sent New Verification Email", {
-            variant: "success",
-            anchorOrigin: {
-                vertical: "top",
-                horizontal: "right"
-            }
-        });
-    }
 
     return (
         <div
