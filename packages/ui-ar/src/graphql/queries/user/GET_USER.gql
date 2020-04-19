@@ -1,0 +1,46 @@
+query getUser($id: String!) {
+    getUser(id: $id) {
+        id
+        firstName
+        lastName
+        displayName
+        ghostAccount
+        representation
+        city
+        state
+        gender
+        phoneNumber
+        website
+        email
+        experienceOrder
+        eyeColor
+        heightInches
+        hairColor
+        profileOrder
+        specialSkills {
+            id
+            text
+            index
+        }
+        trainings {
+            id
+            text
+            index
+        }
+        breakdown {
+            ageRange
+            gender
+            unions
+            ethnicity
+            vocalRange
+        }
+        profilePicture {
+            s3Key
+            url
+        }
+        profileImages {
+            s3Key
+            url
+        }
+    }
+}

@@ -1,0 +1,54 @@
+query getAudition($auditionId: String!){
+    getAudition(auditionId: $auditionId){
+        id
+        name
+        startDate
+        questions {
+            id
+            text
+            answers {
+                text
+                # userId
+            }
+        }
+        timeSlots {
+            id
+            startTime
+            endTime
+            capacity
+            talent {
+                callBack
+                decision
+                hasConflicts
+                id
+                registered
+                status
+                user {
+                    id
+                    displayName
+                }
+            }
+        }
+        forRoles {
+            id
+            characterName
+        }
+        talent {
+            id
+            decision
+            status
+            responseCode
+            timeSlot {
+                startTime
+                endTime
+            }
+            user {
+                id
+                displayName
+                profilePicture{
+                    url
+                }
+            }
+        }
+    }
+}

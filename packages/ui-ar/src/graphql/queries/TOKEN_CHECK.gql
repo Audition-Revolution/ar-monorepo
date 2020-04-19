@@ -1,0 +1,10 @@
+{
+    tokenCheck {
+        id
+        displayName
+        userType
+        theatreVerified
+        verified
+        email
+    }
+}

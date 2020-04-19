@@ -1,0 +1,26 @@
+query searchForAuditions($query: String!){
+    searchForAuditions(query: $query) {
+        id
+        name
+        auditionType
+        address
+        project {
+            id
+            name
+            organization {
+                name
+            }
+        }
+        forRoles {
+            characterName
+            characterSummary
+            breakdown {
+                ageRange
+                gender
+                unions
+                ethnicity
+                vocalRange
+            }
+        }
+    }
+}
