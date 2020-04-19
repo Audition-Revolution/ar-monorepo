@@ -7,7 +7,7 @@
   "scripts": {
     "client": "yarn workspace ar-client start",
     "server": "yarn workspace server-ar start:dev",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "lerna run start:dev --parallel",
     "build": "echo 'custom build' && cd packages/server-ar && npm run build"
   },
   "dependencies": {
