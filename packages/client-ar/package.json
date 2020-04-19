@@ -1,7 +1,6 @@
 {
-  "name": "ar-client",
+  "name": "client-ar",
   "version": "0.1.0",
-  "private": true,
   "proxy": "http://localhost:3000",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
