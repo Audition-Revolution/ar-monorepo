@@ -4,7 +4,7 @@ import {
   Card,
   CardContent,
   TextField,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { useForm } from "vendor/@fuse/hooks";
 import clsx from "clsx";
@@ -100,6 +100,8 @@ function PasswordResetPage(props: any) {
                 variant="outlined"
                 required
                 fullWidth
+                error={error}
+                helperText={error && "Server Error, please contact support@auditionrevolution.com for assistance"}
               />
               {props.match.params.token && (
                 <>
@@ -128,13 +130,6 @@ function PasswordResetPage(props: any) {
                     fullWidth
                   />
                 </>
-              )}
-              {error && (
-                <h1>uh oh</h1>
-                // <Message negative>
-                //     <Message.Header>Bad Request</Message.Header>
-                //     <p>Please Try Again</p>
-                // </Message>
               )}
 
               <Button
