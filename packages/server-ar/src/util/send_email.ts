@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
+
 dotenv.config();
-import * as sgMail from "@sendgrid/mail";
+import sgMail from "@sendgrid/mail";
 import {ClientResponse} from "@sendgrid/client/src/response";
 
 function getBaseUrl() {
@@ -76,7 +77,7 @@ export function rejectionEmail(email, project) {
 
 }
 
-export function sendUserRegistrationEmail(email, name, id) {
+export async function sendUserRegistrationEmail(email, name, id) {
     const html = `
         <h1>Welcome to Audition Revolution, ${name}!</h1>
         <p>To verify your account, click the link below.</p>
@@ -95,7 +96,7 @@ export function sendUserRegistrationEmail(email, name, id) {
             subject: "Audition Revolution Account Verification",
             html,
         };
-        sgMail.send(msg);
+        await sgMail.send(msg);
     } else {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
@@ -104,13 +105,14 @@ export function sendUserRegistrationEmail(email, name, id) {
             subject: "Audition Revolution Account Verification",
             html,
         };
-        sgMail.send(msg);
+        await sgMail.send(msg);
     }
-
+    console.log("finish user registration");
 }
 
 export default function sendEmail(email, token, expires) {
     const url = getBaseUrl();
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const fullUrl = `${url}/passwordReset/${token}?resetPasswordExpires=${expires.getTime()}`;
     const html = `
         <h1>Audition Revolution Password Reset</h1>
@@ -120,25 +122,30 @@ export default function sendEmail(email, token, expires) {
         <p>Sincerely,</p>
         <p>Audition Revolution Team</p>
     `;
+
+    let msg = {} as any;
     if (process.env.NODE_ENV !== "production") {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const msg = {
+        msg = {
             to: "king0120@gmail.com",
             from: "support@auditionrevolution.com",
             subject: "Audition Revolution Password Reset",
             html,
         };
-        sgMail.send(msg);
     } else {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const msg = {
+        msg = {
             to: email,
             from: "support@auditionrevolution.com",
             subject: "Audition Revolution Password Reset",
             html,
         };
-        sgMail.send(msg);
     }
+    console.log("Sending password reset");
+    return sgMail.send(msg).then(() => {
+        console.log(`mail to ${email} is sent`);
+    }).catch(error => {
+        const {message, code, response} = error;
+        console.error(`${error.code} :${error.message}`);
+    });
 
 }
 

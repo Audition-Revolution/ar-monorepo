@@ -94,17 +94,25 @@ export class AuthService {
                     expires.setHours(expires.getHours() + 1);
                     user.resetPasswordExpires = expires;
                     await this.userService.update(user.id, user);
+                    console.log("Update succeed");
                     if (!user.verified) {
-                        sendUserRegistrationEmail(user.email, `${user.firstName} ${user.lastName}`, user.id);
+                        await sendUserRegistrationEmail(user.email, `${user.firstName} ${user.lastName}`, user.id);
+                        console.log("Email Registration complete");
                     }
-                    await sendEmail(user.email, user.resetPasswordToken, user.resetPasswordExpires);
+                    try {
+                        await sendEmail(user.email, user.resetPasswordToken, user.resetPasswordExpires);
+                        console.log("Password Reset complete");
+                    } catch (err) {
+                        throw Error("Email Send Unsuccessful");
+                    }
+
                     return resolve("Success");
                 } catch (err) {
                     return reject(err);
                 }
             });
         });
-    };
+    }
 
     setNewPassword = async (resetPasswordToken, resetPasswordExpires, newPassword) => {
         try {
@@ -123,5 +131,5 @@ export class AuthService {
             };
         }
 
-    };
+    }
 }

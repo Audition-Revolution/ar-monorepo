@@ -32,7 +32,7 @@
         "@nestjs/swagger": "^3.1.0",
         "@nestjs/typeorm": "^6.2.0",
         "@nestjs/websockets": "^6.10.13",
-        "@sendgrid/mail": "^6.4.0",
+        "@sendgrid/mail": "^7.0.1",
         "@sentry/node": "^5.13.1",
         "apollo-server-express": "^2.9.12",
         "aws-sdk": "^2.578.0",

@@ -143,6 +143,7 @@ async function findMissing() {
         }
         await userService.findByEmail(data["Email Address"].trim()).then(async user => {
           try {
+            totalUsers.push(user.id)
             const tags = await tagService.getTagsForUser(clifton.id, user.id);
             // console.log(tags)
             if (tags.indexOf("My Talent") === -1) {
@@ -158,7 +159,8 @@ async function findMissing() {
           }
 
         });
-        console.log(rows, found)
+        console.log(totalUsers.length);
+        console.log(Array.from(new Set(totalUsers)).length);
       })
       .on("end", () => {
         console.log("finished");
