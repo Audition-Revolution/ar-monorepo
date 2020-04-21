@@ -31,6 +31,7 @@
     "jss-extend": "^6.2.0",
     "keycode": "^2.2.0",
     "lodash": "^4.17.15",
+    "match-sorter": "^4.1.0",
     "mobile-detect": "^1.4.4",
     "moment": "^2.24.0",
     "notistack": "^0.9.9",

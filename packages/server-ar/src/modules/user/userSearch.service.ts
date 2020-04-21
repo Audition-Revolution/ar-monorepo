@@ -56,7 +56,7 @@ export class UserSearchService {
         return results;
     }
 
-    async searchTag(searchVal: string, ownerId: string) {
+    async searchTag(searchVal: string, ownerId: string, ownerEmail: string) {
         const notes = this.actorNoteRepo.createQueryBuilder("note")
             .select("DISTINCT on (note.forId) note.forId as userId")
             .where("LOWER(note.text) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
@@ -77,18 +77,18 @@ export class UserSearchService {
             });
         const uniqueIds = exp.filter(unique);
 
-        const results = await this.userRepo
+        let results: any = await this.userRepo
             .createQueryBuilder("user")
             .select(["user.id", "user.firstName", "user.lastName", "user.email", "user.city", "user.state"])
             .leftJoinAndSelect("user.profileImages", "userImage")
             .leftJoinAndSelect("user.breakdown", "breakdown")
-            .where("user.id in (:...users)").setParameter("users", uniqueIds)
-            .andWhere("user.verified = true")
-            .getManyAndCount();
+            .where("user.id in (:...users)").setParameter("users", uniqueIds);
+        results = this.verifiedOrImportedFromTheatreDatabase(results, ownerEmail);
+        results = await results.getManyAndCount();
         return await this.formatResults(results);
     }
 
-    async searchKeyword(searchVal: string, breakdown) {
+    async searchKeyword(searchVal: string, breakdown, ownerEmail: string) {
         const skills = this.skillRepo.createQueryBuilder("skill")
             .select("DISTINCT on (skill.userId) skill.userId as userId")
             .where("LOWER(skill.text) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
@@ -116,15 +116,17 @@ export class UserSearchService {
                 throw new Error("Query failed");
             });
         const uniqueIds = exp.filter(unique);
-
-        const results = await this.userRepo
+        console.log(uniqueIds.length);
+        let results: any = await this.userRepo
             .createQueryBuilder("user")
             .select(["user.id", "user.firstName", "user.lastName", "user.email", "user.city", "user.state"])
             .leftJoinAndSelect("user.profileImages", "userImage")
             .leftJoinAndSelect("user.breakdown", "breakdown")
-            .where("user.id in (:...users)").setParameter("users", uniqueIds)
-            .andWhere("user.verified = true")
-            .getManyAndCount();
+            .where("user.id in (:...users)").setParameter("users", uniqueIds);
+
+        results = this.verifiedOrImportedFromTheatreDatabase(results, ownerEmail);
+        results = await results.getManyAndCount();
+        console.log(results)
         return await this.formatResults(results);
     }
 
@@ -243,7 +245,7 @@ export class UserSearchService {
             }).setParameter("vocalRange", breakdown.vocalRange);
         }
         try {
-            const sql = results.getSql()
+            const sql = results.getSql();
             console.log(sql);
             const found = await results.getManyAndCount();
             return await this.formatResults(found);

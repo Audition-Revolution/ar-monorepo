@@ -178,12 +178,6 @@ type LoginResponse {
     userId: String!
 }
 
-type MailEntity {
-    id: String!
-    status: String!
-    to: String!
-}
-
 type MusicalTheatreExperience implements Experience {
     company: String!
     description: String
@@ -217,7 +211,6 @@ type Mutation {
     inviteToAudition(auditionId: String!, projectId: String!, timeSlotId: String, userId: String, users: [String!]): AuditionTalentInstance!
     login(email: String!, password: String!): LoginResponse!
     moveSection(newExperiences: [ExperienceType!], order: [String!]): Boolean
-    readNotification(id: String!): Boolean
     removeExperience(data: AddExperienceDTO!): Boolean
     removeNote(id: String!): Boolean
     removeSkillOrTraining(skillOrder: [ExperienceOrder!], text: String, type: String!): Boolean
@@ -230,16 +223,6 @@ type Mutation {
     updateAnswer(answerId: String!, text: String!): Boolean!
     updateTalentInstance(decision: String, instanceId: String): Boolean
     updateUser(data: UserDataDTO!): Boolean
-}
-
-type Notification {
-    createdAt: DateTime!
-    id: String!
-    linkTo: String!
-    read: Boolean!
-    text: String!
-    updatedAt: DateTime!
-    user: User!
 }
 
 type OperaExperience implements Experience {
@@ -331,6 +314,7 @@ type Query {
     getRole(roleId: String!): ProjectRole!
     getTagsForActor(id: String!): Tags!
     getTagsForOwner: [ActorTag!]!
+    getTagsForTagsPage: [ActorTag!]!
     getUser(id: String!): User!
     searchForAuditions(query: String!): [Audition!]!
     tokenCheck: User!
@@ -394,6 +378,7 @@ type User {
     filmExperience: [FilmExperience!]!
     firstName: String!
     gender: String
+    ghostAccount: Boolean
     hairColor: HairColor!
     heightInches: Float
     id: String!
@@ -401,7 +386,6 @@ type User {
     lastName: String!
     musicalTheatreExperience: [MusicalTheatreExperience!]!
     notes: [ActorNote!]!
-    notifications: [Notification!]
     operaExperience: [OperaExperience!]!
     organizations: [Organization!]!
     ownedOrgs: [Organization!]!

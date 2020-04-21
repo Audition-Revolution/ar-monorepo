@@ -3,6 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {ActorTag} from "./ActorTag.entity";
 import {Repository} from "typeorm";
 import {S3Service} from "../../../s3/s3.service";
+import {BreakdownService} from "../../../common/breakdown/breakdown.service";
 
 @Injectable()
 export class ActorTagService {
@@ -21,15 +22,22 @@ export class ActorTagService {
         return uniqueTags.map((tagObject) => tagObject.tag);
     }
 
-    async findTagsForOwner(owner): Promise<ActorTag[]> {
+    async findTagsForOwner(owner, fetchBreakdown: boolean = false): Promise<ActorTag[]> {
+        const relations = ["for", "for.profilePicture"];
+        if (fetchBreakdown) {
+            relations.push("for.breakdown");
+        }
         const tags = await this.actorTagRepo.find({
             where: {
                 ownerId: owner,
             },
-            relations: ["for", "for.profilePicture"],
+            relations,
         });
 
         for (const tag of tags) {
+            if (tag.for.breakdown) {
+                tag.for.breakdown = BreakdownService.formatBreakdown(tag.for.breakdown);
+            }
             if (tag.for.profilePicture) {
                 const profilePic = tag.for.profilePicture.s3Key;
                 const profilePicture = await this.s3Service.getUrlForObject(profilePic).then((url) => {

@@ -436,6 +436,7 @@ type Query {
   tokenCheck: User!
   getDistinctTags: Tags!
   getTagsForOwner: [ActorTag!]!
+  getTagsForTagsPage: [ActorTag!]!
   getTagsForActor(id: String!): Tags!
 }
 

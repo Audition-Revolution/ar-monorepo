@@ -32,9 +32,9 @@ export class UserController {
         if (query.type === "name") {
             users = await this.userSearchService.searchUser(query.value, spec, req.user.email);
         } else if (query.type === "experienceTalent") {
-            users = await this.userSearchService.searchKeyword(query.value, spec);
+            users = await this.userSearchService.searchKeyword(query.value, spec, req.user.email);
         }  else if (query.type === "tag") {
-            users = await this.userSearchService.searchTag(query.value, req.user.id);
+            users = await this.userSearchService.searchTag(query.value, req.user.id, req.user.email);
         }
         return users;
     }

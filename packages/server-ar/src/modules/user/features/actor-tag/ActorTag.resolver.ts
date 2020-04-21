@@ -42,6 +42,13 @@ export class ActorTagResolver {
     }
 
     @UseGuards(GqlAuthGuard)
+    @Query(() => [ActorTag])
+    async getTagsForTagsPage(@CurrentUser() user) {
+        const tags = await this.actorTagService.findTagsForOwner(user.id, true);
+        return tags;
+    }
+
+    @UseGuards(GqlAuthGuard)
     @Query(() => Tags)
     async getTagsForActor(@Args("id") id: string, @CurrentUser() user) {
         const tags = await this.actorTagService.getTagsForUser(user.id, id);
