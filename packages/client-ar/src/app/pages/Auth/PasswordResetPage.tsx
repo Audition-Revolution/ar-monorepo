@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   Button,
   Card,
-  CardContent,
+  CardContent, CircularProgress,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -16,6 +16,7 @@ import { useSnackbar } from "notistack";
 function PasswordResetPage(props: any) {
   const classes = useAuthStyles();
   const { enqueueSnackbar } = useSnackbar();
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const { form, handleChange, resetForm } = useForm({
     email: "",
@@ -37,8 +38,9 @@ function PasswordResetPage(props: any) {
 
   const handleSubmit = async (ev: any) => {
     ev.preventDefault();
+    setIsLoading(true)
     setError(false);
-    resetForm();
+
     try {
       if (!props.match.params.token) {
         await arAxios.post("/auth/passwordReset", { email: form.email });
@@ -56,14 +58,17 @@ function PasswordResetPage(props: any) {
       } else {
         const passwordResetToken = props.match.params.token;
         const expiresToken = props.location.search.split("=")[1];
-        await arAxios.post(
+        const res = await arAxios.post(
           `/auth/passwordReset/${passwordResetToken}?resetPasswordExpires=${expiresToken}`,
           { password: form.newPassword }
         );
+        setIsLoading(false)
         props.history.push("/login");
+        resetForm();
       }
     } catch (e) {
       setError(true);
+      setIsLoading(false)
     }
   };
 
@@ -82,70 +87,75 @@ function PasswordResetPage(props: any) {
             <Typography variant="h6" className="md:w-full mb-32">
               RESET YOUR PASSWORD
             </Typography>
+            {isLoading && (
+                <CircularProgress color="secondary" />
+            )}
+            {
+              !isLoading && (
+                  <form
+                      name="recoverForm"
+                      noValidate
+                      className="flex flex-col justify-center w-full"
+                      onSubmit={handleSubmit}
+                  >
+                    <TextField
+                        className="mb-16"
+                        label="Email"
+                        autoFocus
+                        type="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        variant="outlined"
+                        required
+                        fullWidth
+                        error={error}
+                        helperText={error && "Server Error, please contact support@auditionrevolution.com for assistance"}
+                    />
+                    {props.match.params.token && (
+                        <>
+                          <TextField
+                              className="mb-16"
+                              label="New Password"
+                              autoFocus
+                              type="password"
+                              name="newPassword"
+                              value={form.newPassword}
+                              onChange={handleChange}
+                              variant="outlined"
+                              required
+                              fullWidth
+                          />
+                          <TextField
+                              className="mb-16"
+                              label="Confirm New Password"
+                              autoFocus
+                              type="password"
+                              name="confirmNewPassword"
+                              value={form.confirmNewPassword}
+                              onChange={handleChange}
+                              variant="outlined"
+                              required
+                              fullWidth
+                          />
+                        </>
+                    )}
 
-            <form
-              name="recoverForm"
-              noValidate
-              className="flex flex-col justify-center w-full"
-              onSubmit={handleSubmit}
-            >
-              <TextField
-                className="mb-16"
-                label="Email"
-                autoFocus
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                variant="outlined"
-                required
-                fullWidth
-                error={error}
-                helperText={error && "Server Error, please contact support@auditionrevolution.com for assistance"}
-              />
-              {props.match.params.token && (
-                <>
-                  <TextField
-                    className="mb-16"
-                    label="New Password"
-                    autoFocus
-                    type="password"
-                    name="newPassword"
-                    value={form.newPassword}
-                    onChange={handleChange}
-                    variant="outlined"
-                    required
-                    fullWidth
-                  />
-                  <TextField
-                    className="mb-16"
-                    label="Confirm New Password"
-                    autoFocus
-                    type="password"
-                    name="confirmNewPassword"
-                    value={form.confirmNewPassword}
-                    onChange={handleChange}
-                    variant="outlined"
-                    required
-                    fullWidth
-                  />
-                </>
-              )}
-
-              <Button
-                variant="contained"
-                color="primary"
-                className="w-224 mx-auto mt-16"
-                aria-label="Reset"
-                disabled={!isFormValid()}
-                type="submit"
-              >
-                {props.match.params.token
-                  ? "Set New Password"
-                  : "RESET PASSWORD"}
-              </Button>
-            </form>
-
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className="w-224 mx-auto mt-16"
+                        aria-label="Reset"
+                        disabled={!isFormValid()}
+                        type="submit"
+                    >
+                      {props.match.params.token
+                          ? "Set New Password"
+                          : "RESET PASSWORD"}
+                    </Button>
+                  </form>
+              )
+            }
             <div className="flex flex-col items-center justify-center pt-32 pb-24">
               <Link className="font-medium" to="/login">
                 Go back to login

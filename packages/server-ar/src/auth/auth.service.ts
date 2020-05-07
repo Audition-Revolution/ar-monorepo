@@ -82,7 +82,7 @@ export class AuthService {
 
     sendPasswordReset = async (email: string) => {
         return new Promise((resolve, reject) => {
-            crypto.randomBytes(20, async (err, buf) => {
+            return crypto.randomBytes(20, async (err, buf) => {
                 try {
                     const token = buf.toString("hex");
                     const user = await this.userService.findByEmail(email);
@@ -90,17 +90,15 @@ export class AuthService {
                         return reject("No User Found");
                     }
                     user.resetPasswordToken = token;
-                    const expires = new Date();
-                    expires.setHours(expires.getHours() + 1);
-                    user.resetPasswordExpires = expires;
-                    await this.userService.update(user.id, user);
-                    console.log("Update succeed");
-                    if (!user.verified) {
-                        await sendUserRegistrationEmail(user.email, `${user.firstName} ${user.lastName}`, user.id);
-                        console.log("Email Registration complete");
-                    }
                     try {
-                        await sendEmail(user.email, user.resetPasswordToken, user.resetPasswordExpires);
+                        await this.userService.update(user.id, user);
+                        console.log("Update succeed");
+                        if (!user.verified) {
+                            sendUserRegistrationEmail(user.email, `${user.firstName} ${user.lastName}`, user.id);
+                            console.log("Email Registration complete");
+                        }
+                        console.log("Sending Email");
+                        sendEmail(user.email, user.resetPasswordToken);
                         console.log("Password Reset complete");
                     } catch (err) {
                         throw Error("Email Send Unsuccessful");
@@ -118,17 +116,13 @@ export class AuthService {
         try {
             const user = await this.userService.setNewPassword(resetPasswordToken, resetPasswordExpires, newPassword);
             if (!user) {
-                return {
-                    message: "failure",
-                };
+                throw new Error("User Not Found");
             }
             return {
                 message: "success",
             };
         } catch (err) {
-            return {
-                message: "error",
-            };
+            throw new Error("Failed to set new password");
         }
 
     }

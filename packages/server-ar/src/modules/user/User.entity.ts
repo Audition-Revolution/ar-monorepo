@@ -337,7 +337,7 @@ export class User {
     @BeforeUpdate()
     async hashPassword() {
         if (this.password === '0' && this.salt === '0' && this.importSourceEmails.length > 0) {
-            return
+            return;
         }
         if (!this.password) {
             return;

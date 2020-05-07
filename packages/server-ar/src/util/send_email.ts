@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 import sgMail from "@sendgrid/mail";
-import {ClientResponse} from "@sendgrid/client/src/response";
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 function getBaseUrl() {
     return process.env.NODE_ENV !== "production" ? "http://localhost:3001" : "https://app.auditionrevolution.com";
@@ -29,7 +29,6 @@ export function newOrganizationEmail(user, company) {
         </ul>
     `;
     if (process.env.NODE_ENV !== "production") {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
             to: "king0120@gmail.com",
             from: "support@auditionrevolution.com",
@@ -38,7 +37,6 @@ export function newOrganizationEmail(user, company) {
         };
         sgMail.send(msg);
     } else {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
             to: "jarrad@auditionrevolution",
             cc: ["jamie@auditionrevolution.com", "megan@auditionrevolution.com"],
@@ -56,7 +54,7 @@ export function rejectionEmail(email, project) {
         <p>Good Luck Next Time!</p>
     `;
     if (process.env.NODE_ENV !== "production") {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
         const msg = {
             to: "king0120@gmail.com",
             from: "support@auditionrevolution.com",
@@ -65,7 +63,7 @@ export function rejectionEmail(email, project) {
         };
         sgMail.send(msg);
     } else {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
         const msg = {
             to: email,
             from: "support@auditionrevolution.com",
@@ -89,7 +87,7 @@ export async function sendUserRegistrationEmail(email, name, id) {
         <p>Audition Revolution Team</p>
     `;
     if (process.env.NODE_ENV !== "production") {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
         const msg = {
             to: "king0120@gmail.com",
             from: "support@auditionrevolution.com",
@@ -98,7 +96,7 @@ export async function sendUserRegistrationEmail(email, name, id) {
         };
         await sgMail.send(msg);
     } else {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
         const msg = {
             to: email,
             from: "support@auditionrevolution.com",
@@ -110,10 +108,10 @@ export async function sendUserRegistrationEmail(email, name, id) {
     console.log("finish user registration");
 }
 
-export default function sendEmail(email, token, expires) {
+export default function sendEmail(email, token) {
     const url = getBaseUrl();
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    const fullUrl = `${url}/passwordReset/${token}?resetPasswordExpires=${expires.getTime()}`;
+
+    const fullUrl = `${url}/passwordReset/${token}`;
     const html = `
         <h1>Audition Revolution Password Reset</h1>
         <p>Please click the link below in order to reset your password.</p>
@@ -155,7 +153,7 @@ export function orgCreateEmail(email, org) {
         <p>An organiziation called ${org.name} was just created. Please contact ${org.owner.displayName} at ${org.owner.email} for onboarding</p>
     `;
     if (process.env.NODE_ENV !== "production") {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
         const msg = {
             to: "king0120@gmail.com",
             from: "support@auditionrevolution.com",
@@ -164,7 +162,7 @@ export function orgCreateEmail(email, org) {
         };
         sgMail.send(msg);
     } else {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
         const msg = {
             to: email,
             from: "support@auditionrevolution.com",
@@ -184,7 +182,7 @@ export async function auditionInvite(email, project, audition, responseCode) {
         <p>Click <a href="${fullUrl}">here</a> to respond to your audition</p>
     `;
     if (process.env.NODE_ENV !== "production") {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
         const msg = {
             to: "king0120@gmail.com",
             from: "support@auditionrevolution.com",
@@ -194,7 +192,7 @@ export async function auditionInvite(email, project, audition, responseCode) {
         await sgMail.send(msg);
         return "success";
     } else {
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
         const msg = {
             to: email,
             from: "support@auditionrevolution.com",

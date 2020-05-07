@@ -203,20 +203,17 @@ export class UserService {
     }
 
     async setNewPassword(resetPasswordToken, resetPasswordExpires, newPassword) {
-        if (resetPasswordExpires < Date.now()) {
-            throw Error("Token Expired");
-        }
+        // if (resetPasswordExpires < Date.now()) {
+        //     throw Error("Token Expired");
+        // }
         try {
             const user = await this.userRepo.createQueryBuilder("user")
-                .select("user.id")
                 .where("user.resetPasswordToken = :resetPasswordToken", { resetPasswordToken })
                 .getOne();
             const id = user.id;
             user.password = newPassword;
             user.resetPasswordToken = null;
-            user.resetPasswordExpires = null;
-            await user.hashPassword();
-            this.update(id, user);
+            await this.update(id, user);
             return user;
         } catch (err) {
             console.log(err);
