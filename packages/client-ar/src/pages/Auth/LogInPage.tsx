@@ -154,16 +154,6 @@ function Login2Page(props: any) {
               <Divider className="w-32" />
             </div>
 
-            {/* <Button variant="contained" color="secondary" size="small"
-                                className="normal-case w-192 mb-8">
-                            Log in with Google
-                        </Button>
-
-                        <Button variant="contained" color="primary" size="small"
-                                className="normal-case w-192">
-                            Log in with Facebook
-                        </Button> */}
-
             <div className="flex flex-col items-center justify-center pt-32 pb-24">
               <span className="font-medium">Don't have an account?</span>
               <Link className="font-medium" to="/register">

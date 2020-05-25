@@ -18,7 +18,7 @@ import arAxios from "utils/axiosHelper";
 import { GlobalContext } from "globalContext";
 import { FormikTextField } from "../../components/shared/FormikTextField";
 import { useSnackbar } from "notistack";
-import TermsAndConditions from "./TermsAndConditions";
+import TermsAndConditions from "../TermsAndConditions";
 
 const ranges = [
   {

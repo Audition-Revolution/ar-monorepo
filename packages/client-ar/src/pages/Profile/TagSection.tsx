@@ -86,7 +86,6 @@ const TagSection: FC<any> = ({ tagName, users }) => {
               return (
                 <Chip
                   key={user.id + index.toString()}
-                  // avatar={<Avatar src={user.profilePicture?.url}/>}
                   onClick={() => push(`/profile/${user.id}`)}
                   label={`${user.firstName} ${user.lastName}`}
                   onDelete={() => {

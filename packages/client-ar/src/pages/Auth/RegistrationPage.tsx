@@ -16,7 +16,7 @@ import * as Yup from "yup";
 import arAxios from "utils/axiosHelper";
 import { GlobalContext } from "globalContext";
 import { FormikTextField } from "../../components/shared/FormikTextField";
-import TermsAndConditions from "./TermsAndConditions";
+import TermsAndConditions from "../TermsAndConditions";
 import { useSnackbar } from "notistack";
 
 const initialValues = {

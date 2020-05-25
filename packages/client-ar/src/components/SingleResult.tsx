@@ -1,9 +1,9 @@
 import {Button, Chip, makeStyles, Theme, Typography} from "@material-ui/core";
 import React, {FC} from "react";
 import {useQuery} from "@apollo/react-hooks";
-import {GET_TAGS_FOR_ACTOR} from "../../../components/audition/TagsOnActor";
-import AddTags from "../../../components/profile/AddTags";
-import AddNotes from "../../../components/profile/AddNotes";
+import {GET_TAGS_FOR_ACTOR} from "./audition/TagsOnActor";
+import AddTags from "./profile/AddTags";
+import AddNotes from "./profile/AddNotes";
 
 interface SingleResultProps {
     actor: Record<string, any>,

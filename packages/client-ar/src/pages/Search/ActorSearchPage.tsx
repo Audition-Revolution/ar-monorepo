@@ -22,7 +22,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import SearchIcon from "@material-ui/icons/Search";
-import ActorSearchResults from "./Partials/ActorSearchResults";
+import ActorSearchResults from "../../components/ActorSearchResults";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

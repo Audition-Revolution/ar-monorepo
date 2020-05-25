@@ -35,7 +35,7 @@ const AddTags: FC<AddTagsProps> = (props) => {
                 data-cy="add-notes"
             />
         </ListItem>
-    )
+    );
     return (
         <>
             <Trigger onClick={() => setTagsOpen(true)}/>

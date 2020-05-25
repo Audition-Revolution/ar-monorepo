@@ -148,15 +148,6 @@ const AddExperienceModal: FC<any> = () => {
                     name={"director"}
                     label={"Director"}
                   />
-                  {/*<FormikTextField*/}
-                  {/*    type={"text"}*/}
-                  {/*    name={"description"}*/}
-                  {/*    label={"Description"}*/}
-                  {/*    variant="outlined"*/}
-                  {/*    rows="5"*/}
-                  {/*    multiline*/}
-                  {/*    fullWidth*/}
-                  {/*/>*/}
                 </Form>
               </DialogContent>
               <DialogActions>

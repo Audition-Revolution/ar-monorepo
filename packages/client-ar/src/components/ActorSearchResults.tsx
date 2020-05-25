@@ -5,7 +5,7 @@ import {
     Typography
 } from "@material-ui/core";
 import FuseAnimateGroup from "vendor/@fuse/components/FuseAnimateGroup/FuseAnimateGroup";
-import Pagination from "../../../components/shared/Pagination";
+import Pagination from "./shared/Pagination";
 import SingleResult from "./SingleResult";
 
 export const AnimateGroup: any = FuseAnimateGroup;

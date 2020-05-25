@@ -12,7 +12,7 @@ import {
   Typography
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { AnimateGroup } from "./Partials/ActorSearchResults";
+import { AnimateGroup } from "../../components/ActorSearchResults";
 import Pagination from "../../components/shared/Pagination";
 
 const SEARCH_AUDITIONS = require("graphql/queries/SEARCH_AUDITIONS.graphql");
