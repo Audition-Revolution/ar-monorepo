@@ -1,29 +1,29 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { Button, TextField } from "@material-ui/core";
-import { useForm } from "vendor/@fuse/hooks/index";
 
-const ADD_NOTE = require("../../graphql/mutations/ADD_NOTE.gql");
-const GET_NOTES = require("../../graphql/queries/GET_NOTES.gql");
+const ADD_NOTE = require("../../graphql/mutations/ADD_NOTE.graphql");
+const GET_NOTES = require("../../graphql/queries/GET_NOTES.graphql");
 
 const AddNoteForActor: FC<any> = ({ userId, auditionId }) => {
-  const { form, handleChange, resetForm } = useForm({
-    note: ""
+  const [noteValue, setNoteValue] = useState("");
+
+  const [addNote] = useMutation(ADD_NOTE, {
+    variables: {
+      input: { for: userId, audition: auditionId, text: noteValue }
+    },
+    refetchQueries: [
+      {
+        query: GET_NOTES,
+        variables: { actorId: userId }
+      }
+    ]
   });
-  const variables = {
-    input: { for: userId, audition: auditionId, text: form.note }
-  };
-  const refetchQueries = [
-    {
-      query: GET_NOTES,
-      variables: { actorId: userId }
-    }
-  ];
-  const [addNote] = useMutation(ADD_NOTE, { variables, refetchQueries });
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     addNote();
-    resetForm();
+    setNoteValue("");
   };
 
   return (
@@ -38,8 +38,8 @@ const AddNoteForActor: FC<any> = ({ userId, auditionId }) => {
         label="Add Notes Here..."
         type="note"
         name="note"
-        value={form.note}
-        onChange={handleChange}
+        value={noteValue}
+        onChange={e => setNoteValue(e.target.value)}
       />
       <Button
         type="submit"

@@ -13,7 +13,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { gql } from "apollo-boost";
 
-const REMOVE_EXPERIENCE = require("../../graphql/mutations/profile/REMOVE_EXPERIENCE.gql");
+const REMOVE_EXPERIENCE = require("../../graphql/mutations/profile/REMOVE_EXPERIENCE.graphql");
 const REORDER_EXPERIENCE = gql`
   mutation reorderExperience($data: ReorderExperienceDTO!) {
     reorderExperience(data: $data)
@@ -152,7 +152,7 @@ const ExperienceList: FC<any> = ({
                   </ListItem>
                   {expItems.map((exp: any, index: number) => (
                     <Draggable key={exp.id} draggableId={exp.id} index={index}>
-                      {(provided) => (
+                      {provided => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}

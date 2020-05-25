@@ -15,7 +15,7 @@ import CompanyNotes from "./CompanyNotes";
 import LightboxModal from "../../components/shared/LightboxModal";
 import MyTags from "./MyTags";
 
-const GET_USER = require("../../graphql/queries/user/GET_USER.gql");
+const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
 
 const useStyles = makeStyles(theme => ({
   profilePic: {

@@ -15,7 +15,7 @@ import { FormikTextField } from "../shared/FormikTextField";
 import * as Yup from "yup";
 import { GET_EXPERIENCE } from "./ExperienceList";
 
-const ADD_EXPERIENCE = require("../../graphql/mutations/profile/ADD_EXPERIENCE.gql");
+const ADD_EXPERIENCE = require("../../graphql/mutations/profile/ADD_EXPERIENCE.graphql");
 
 const experiences = [
   {
@@ -62,7 +62,9 @@ const validationSchema = Yup.object({
 const AddExperienceModal: FC<any> = () => {
   const [open, toggleOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("theatreExperience");
-  const { state: {userId} } = useContext(GlobalContext);
+  const {
+    state: { userId }
+  } = useContext(GlobalContext);
   const [addExperience] = useMutation(ADD_EXPERIENCE, {
     refetchQueries: [
       {

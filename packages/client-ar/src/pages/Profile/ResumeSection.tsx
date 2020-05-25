@@ -25,7 +25,7 @@ interface IResumeSection {
   userId: string;
 }
 
-const GET_USER = require("../../graphql/queries/user/GET_USER.gql");
+const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
 
 const REMOVE_SKILL = gql`
   mutation removeSkillOrTraining($type: String!, $text: String!) {

@@ -13,7 +13,7 @@ import { FormikTextField } from "../shared/FormikTextField";
 import * as Yup from "yup";
 import { gql } from "apollo-boost";
 
-const GET_USER = require("../../graphql/queries/user/GET_USER.gql");
+const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
 
 export const ADD_SKILL = gql`
   mutation addSkillOrTraining($type: String!, $text: String!) {

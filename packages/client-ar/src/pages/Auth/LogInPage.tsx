@@ -19,7 +19,7 @@ import { useAuthStyles, Animate, AuthPageSplash } from "./SharedAuth";
 import { useSnackbar } from "notistack";
 import { ApolloError } from "apollo-boost";
 
-const LOGIN = require("../../graphql/mutations/LOGIN.gql");
+const LOGIN = require("../../graphql/mutations/LOGIN.graphql");
 
 function Login2Page(props: any) {
   const { enqueueSnackbar } = useSnackbar();
@@ -73,7 +73,7 @@ function Login2Page(props: any) {
     <div
       className={clsx(
         classes.root,
-          "flex flex-col flex-auto flex-shrink-0 min-h-screen p-24 md:flex-row md:p-0"
+        "flex flex-col flex-auto flex-shrink-0 min-h-screen p-24 md:flex-row md:p-0"
       )}
     >
       <AuthPageSplash />

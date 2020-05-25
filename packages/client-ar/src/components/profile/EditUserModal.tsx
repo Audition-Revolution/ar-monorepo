@@ -23,7 +23,7 @@ import { Select } from "formik-material-ui";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 
-const GET_USER = require("../../graphql/queries/user/GET_USER.gql");
+const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 

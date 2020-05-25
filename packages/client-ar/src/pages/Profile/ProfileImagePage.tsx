@@ -8,9 +8,9 @@ import LightboxModal from "components/shared/LightboxModal";
 import MyDropzone from "components/shared/MyDropzone";
 import { makeStyles } from "@material-ui/styles";
 
-const GET_USER = require("../../graphql/queries/user/GET_USER.gql");
-const SET_PROFILE = require("../../graphql/mutations/profile/SET_PROFILE.gql");
-const DELETE_IMAGE = require("../../graphql/mutations/profile/DELETE_IMAGE.gql");
+const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
+const SET_PROFILE = require("../../graphql/mutations/profile/SET_PROFILE.graphql");
+const DELETE_IMAGE = require("../../graphql/mutations/profile/DELETE_IMAGE.graphql");
 
 const useStyles = makeStyles({
   imageList: {

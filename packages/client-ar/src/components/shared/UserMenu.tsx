@@ -15,7 +15,7 @@ import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { GlobalContext } from "globalContext";
 import { gql } from "apollo-boost";
 
-const GET_ORGANIZATIONS_FOR_USER = require("graphql/queries/organization/GET_ORGANIZATIONS_FOR_USER.gql");
+const GET_ORGANIZATIONS_FOR_USER = require("graphql/queries/organization/GET_ORGANIZATIONS_FOR_USER.graphql");
 
 const TsIcon: any = Icon;
 const GET_ACTOR = gql`
@@ -36,7 +36,9 @@ const GET_ACTOR = gql`
 `;
 
 function UserMenu(props: any) {
-  const { state: {userId, userType} } = useContext(GlobalContext);
+  const {
+    state: { userId, userType }
+  } = useContext(GlobalContext);
   const [getActor, { data, loading }] = useLazyQuery(GET_ACTOR, {
     variables: { id: userId }
   });
