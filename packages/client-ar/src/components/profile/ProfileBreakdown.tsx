@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Typography, Chip } from "@material-ui/core";
-import { Animate } from "pages/Auth/SharedAuth";
 
 const Breakdown: React.FC<any> = ({ title, breakdownArray, width }) => {
   const classWidth = width || "w-sm";
@@ -11,9 +10,7 @@ const Breakdown: React.FC<any> = ({ title, breakdownArray, width }) => {
         {breakdownArray.map(
           (a: string, i: number) =>
             a && (
-              <Animate
-                animation="transition.fadeIn"
-                delay={i * 100}
+              <div
                 key={`${i}${a}`}
               >
                 <Chip
@@ -22,7 +19,7 @@ const Breakdown: React.FC<any> = ({ title, breakdownArray, width }) => {
                   data-cy={`${title}${a}`}
                   label={a}
                 />
-              </Animate>
+              </div>
             )
         )}
       </div>

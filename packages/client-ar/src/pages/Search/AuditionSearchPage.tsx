@@ -12,7 +12,6 @@ import {
   Typography
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { AnimateGroup } from "../../components/ActorSearchResults";
 import Pagination from "../../components/shared/Pagination";
 
 const SEARCH_AUDITIONS = require("graphql/queries/SEARCH_AUDITIONS.graphql");
@@ -48,14 +47,8 @@ const AuditionSearchResult = (props: { results: any; history: any }) => {
   return (
     <>
       <div className="w-full min-w-full table-responsive">
-        <AnimateGroup
+        <div
           className="w-full"
-          enter={{
-            animation: "transition.slideUpBigIn"
-          }}
-          leave={{
-            animation: "transition.slideUpBigOut"
-          }}
         >
           {sliceToShow.map((result: any) => (
             <>
@@ -77,7 +70,7 @@ const AuditionSearchResult = (props: { results: any; history: any }) => {
               <Divider />
             </>
           ))}
-        </AnimateGroup>
+        </div>
       </div>
       <Pagination
         itemCount={props.results.length}

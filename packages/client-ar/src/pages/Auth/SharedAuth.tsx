@@ -1,5 +1,4 @@
 import React from "react";
-import FuseAnimate from "vendor/@fuse/components/FuseAnimate/FuseAnimate";
 import { makeStyles } from "@material-ui/styles";
 import { darken, fade } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
@@ -18,22 +17,20 @@ export const useAuthStyles = makeStyles((theme: any) => ({
   }
 }));
 
-export const Animate: any = FuseAnimate;
-
 export const AuthPageSplash = () => {
   return (
     <div className="flex flex-col flex-grow-0 items-center text-white p-16 text-center md:p-128 md:items-start md:flex-shrink-0 md:flex-1 md:text-left">
-      <Animate animation="transition.expandIn">
+      <div>
         <img className="w-256 mb-32" src={ArLogo} alt="logo" />
-      </Animate>
+      </div>
 
-      <Animate animation="transition.slideUpIn" delay={300}>
+      <div>
         <Typography variant="h3" color="inherit" className="font-light">
           Welcome Back to Audition Revolution!
         </Typography>
-      </Animate>
+      </div>
 
-      <Animate delay={400}>
+      <div>
         <Typography
           variant="subtitle1"
           color="inherit"
@@ -41,7 +38,7 @@ export const AuthPageSplash = () => {
         >
           Sign In Or Create New Account!
         </Typography>
-      </Animate>
+      </div>
     </div>
   );
 };

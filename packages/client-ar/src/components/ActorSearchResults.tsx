@@ -4,11 +4,8 @@ import {
     Paper,
     Typography
 } from "@material-ui/core";
-import FuseAnimateGroup from "vendor/@fuse/components/FuseAnimateGroup/FuseAnimateGroup";
 import Pagination from "./shared/Pagination";
 import SingleResult from "./SingleResult";
-
-export const AnimateGroup: any = FuseAnimateGroup;
 
 function ActorSearchResults(props: any) {
     const [selected, setSelectedPage] = useState(0);
@@ -27,15 +24,7 @@ function ActorSearchResults(props: any) {
                 </Typography>
             </div>
             <div className="w-full min-w-full table-responsive flex-grow">
-                <AnimateGroup
-                    className="w-full"
-                    enter={{
-                        animation: "transition.slideUpBigIn"
-                    }}
-                    leave={{
-                        animation: "transition.slideUpBigOut"
-                    }}
-                >
+                <div className="w-full">
                     {sliceToShow.map((actor: any) => (
                         <>
                             <SingleResult actor={actor} handleClickTalent={props.handleClickTalent}
@@ -43,7 +32,7 @@ function ActorSearchResults(props: any) {
                             <Divider/>
                         </>
                     ))}
-                </AnimateGroup>
+                </div>
             </div>
             <Pagination
                 itemCount={props.actors.length}

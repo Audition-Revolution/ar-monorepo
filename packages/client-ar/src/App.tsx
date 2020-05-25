@@ -5,10 +5,10 @@ import Footer from "./components/shared/Footer";
 import { withRouter } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { GlobalContext } from "./globalContext";
-import { StylesProvider } from "@material-ui/styles";
+import { StylesProvider, ThemeProvider } from "@material-ui/styles";
 import createGenerateClassName from "@material-ui/styles/createGenerateClassName";
 import clsx from "clsx";
-import FuseTheme from "vendor/@fuse/components/FuseTheme/FuseTheme";
+import theme from './themeProvider'
 import { SnackbarProvider } from "notistack";
 import { Button, LinearProgress, Typography } from "@material-ui/core";
 import { useAppStyles } from "./AppStyles";
@@ -51,7 +51,7 @@ const App = () => {
   } else {
     return (
       <StylesProvider generateClassName={generateClassName}>
-        <FuseTheme>
+        <ThemeProvider theme={theme}>
           <SnackbarProvider
             ref={notistackRef}
             maxSnack={5}
@@ -77,14 +77,13 @@ const App = () => {
               </div>
             </div>
           </SnackbarProvider>
-        </FuseTheme>
+        </ThemeProvider>
       </StylesProvider>
     );
   }
 };
-const notistackRef = React.createRef();
+const notistackRef: any = React.createRef();
 const onClickDismiss = (key: string) => () => {
-  // @ts-ignore
   notistackRef.current.closeSnackbar(key);
 };
 

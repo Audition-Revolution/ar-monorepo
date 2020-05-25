@@ -84,7 +84,6 @@ fuzzyTextFilterFn.autoRemove = val => !val;
 
 const TagTable = ({ actors }: any) => {
   const { push } = useHistory();
-  const [filter, setFilter] = React.useState("" as string | undefined);
   const data = React.useMemo(() => actors, [actors]);
   const columns = React.useMemo(
     () => [
@@ -136,7 +135,6 @@ const TagTable = ({ actors }: any) => {
     state: { pageIndex, pageSize },
     gotoPage,
     setPageSize,
-    setGlobalFilter,
     rows
   }: any = useTable<{ pageIndex: number; pageSize: number }>(
     {

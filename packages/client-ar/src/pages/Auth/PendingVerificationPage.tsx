@@ -9,7 +9,6 @@ import {
 import { darken } from "@material-ui/core/styles/colorManipulator";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
-import { Animate } from "./SharedAuth";
 import ARLogo from "../../static/AR_Logo.png";
 import arAxios from "../../utils/axiosHelper";
 import { useSnackbar } from "notistack";
@@ -52,7 +51,7 @@ function PendingVerificationPage(props: PendingVerificationProps) {
       )}
     >
       <div className="flex flex-col items-center justify-center w-full">
-        <Animate animation="transition.expandIn">
+        <div>
           <Card className="w-full max-w-384">
             <CardContent className="flex flex-col items-center justify-center p-32 text-center">
               <img className="m-32" src={ARLogo} alt="logo" />
@@ -97,7 +96,7 @@ function PendingVerificationPage(props: PendingVerificationProps) {
               )}
             </CardContent>
           </Card>
-        </Animate>
+        </div>
       </div>
     </div>
   );

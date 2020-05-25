@@ -1,44 +1,21 @@
-import React, {FC, Suspense, useContext} from "react";
-import {Redirect, Route, Switch} from "react-router-dom";
-import {GlobalContext} from "./globalContext";
+import React, {FC, Suspense} from "react";
+import {Route, Switch} from "react-router-dom";
 import {PrivateRoute, RedirectIfLoggedIn} from "./utils/RouterUtils";
 
 const ProfilePage = React.lazy(() => import("./pages/Profile/ProfilePage"));
-const RegistrationPage = React.lazy(() =>
-    import("./pages/Auth/RegistrationPage")
-);
-const ActorSearchPage = React.lazy(() =>
-    import("./pages/Search/ActorSearchPage")
-);
-const PasswordResetPage = React.lazy(() =>
-    import("./pages/Auth/PasswordResetPage")
-);
-const SettingsPage = React.lazy(() =>
-    import("./pages/General/SettingsPage")
-);
-const AuditionSearchPage = React.lazy(() =>
-    import("./pages/Search/AuditionSearchPage")
-);
+const RegistrationPage = React.lazy(() => import("./pages/Auth/RegistrationPage"));
+const ActorSearchPage = React.lazy(() => import("./pages/Search/ActorSearchPage"));
+const PasswordResetPage = React.lazy(() => import("./pages/Auth/PasswordResetPage"));
+const SettingsPage = React.lazy(() => import("./pages/General/SettingsPage"));
+const AuditionSearchPage = React.lazy(() => import("./pages/Search/AuditionSearchPage"));
 const MyAuditions = React.lazy(() => import("./pages/Profile/MyAuditions"));
 const LoginPage = React.lazy(() => import("./pages/Auth/LogInPage"));
-const MyAuditionInstance = React.lazy(() =>
-    import("./pages/Profile/MyAuditionInstance")
-);
-const MyNotifications = React.lazy(() =>
-    import("./pages/Profile/MyNotifications")
-);
+const MyAuditionInstance = React.lazy(() => import("./pages/Profile/MyAuditionInstance"));
+const MyNotifications = React.lazy(() => import("./pages/Profile/MyNotifications"));
 const MyTags = React.lazy(() => import("./pages/Profile/MyTags"));
-const CompanyRegistrationPage = React.lazy(() =>
-    import("./pages/Auth/CompanyRegistrationPage")
-);
-
-const PendingPasswordResetPage = React.lazy(() =>
-    import("./pages/Auth/PendingPasswordResetPage")
-);
-
-const TagTablePage = React.lazy(() =>
-    import("./pages/Company/TagTablePage")
-);
+const CompanyRegistrationPage = React.lazy(() => import("./pages/Auth/CompanyRegistrationPage"));
+const PendingPasswordResetPage = React.lazy(() => import("./pages/Auth/PendingPasswordResetPage"));
+const TagTablePage = React.lazy(() => import("./pages/Company/TagTablePage"));
 
 const AppRouter: FC<any> = () => {
     return (
