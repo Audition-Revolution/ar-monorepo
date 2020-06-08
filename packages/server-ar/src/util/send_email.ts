@@ -38,7 +38,7 @@ export function newOrganizationEmail(user, company) {
         sgMail.send(msg);
     } else {
         const msg = {
-            to: "jarrad@auditionrevolution",
+            to: "jarrad@auditionrevolution.com",
             cc: ["jamie@auditionrevolution.com", "megan@auditionrevolution.com"],
             from: "support@auditionrevolution.com",
             subject: `New Organization Registered`,
