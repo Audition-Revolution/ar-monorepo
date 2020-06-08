@@ -50,7 +50,7 @@ const App = () => {
     );
   } else {
     return (
-      <StylesProvider generateClassName={generateClassName}>
+      <StylesProvider injectFirst generateClassName={generateClassName}>
         <ThemeProvider theme={theme}>
           <SnackbarProvider
             ref={notistackRef}

@@ -91,9 +91,9 @@ function UserMenu(props: any) {
       <Button className="h-64 ml-8" onClick={userMenuClick}>
         <Badge badgeContent={notificationNumber} color="primary">
           {user.data.photoURL ? (
-            <Avatar className="" alt="user photo" src={user.data.photoURL} />
+            <Avatar alt="user photo" src={user.data.photoURL} />
           ) : (
-            <Avatar className="">{user.data.displayName[0]}</Avatar>
+            <Avatar >{user.data.displayName[0]}</Avatar>
           )}
         </Badge>
         <div className="hidden md:flex flex-col ml-12 items-start">
