@@ -1,5 +1,3 @@
-@import 'normalize.css';
-
 * {
     outline: none !important;
 }
@@ -8,10 +6,13 @@ html {
     font-size: 62.5%;
     font-family: Muli, Roboto, Helvetica Neue, Arial, sans-serif;
 }
+ul {
+    list-style-type: none;
+}
 
- .pi {
-     margin-left: -8px;
- }
+.pi {
+    margin-left: -8px;
+}
 
 #address-input {
     width: 90%;
@@ -100,11 +101,11 @@ form label {
     z-index: 99;
 }
 
-
 .ap-suggestion {
     display: flex;
     align-items: baseline;
 }
+
 .ap-footer svg {
     display: inline;
 }
@@ -119,13 +120,8 @@ img, video {
     max-width: 100%;
     height: auto;
 }
+
 audio, canvas, embed, iframe, img, object, svg, video {
-     display: block;
-     vertical-align: middle;
+    display: block;
+    vertical-align: middle;
 }
-
-@import 'print.css';
-
-@import 'tables.css';
-
-@import 'react-table.css';

@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import {
   Button,
-  Card,
   CardContent,
   CircularProgress,
   TextField,
   Typography
 } from "@material-ui/core";
-import clsx from "clsx";
 import { Link } from "react-router-dom";
 import {useAuthStyles, AuthPageSplash, AuthCard, AuthContainerStyles} from "./SharedAuth";
 import arAxios from "utils/axiosHelper";
