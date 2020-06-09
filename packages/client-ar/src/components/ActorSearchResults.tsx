@@ -6,6 +6,42 @@ import {
 } from "@material-ui/core";
 import Pagination from "./shared/Pagination";
 import SingleResult from "./SingleResult";
+import styled from "styled-components";
+
+const ActorSearchStyles = styled(Paper)`
+    width: 100%;
+    min-height: 60vh;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    .title {
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.6rem;
+        height: 6.4rem;
+        .found {
+            font-size: 1.6rem;
+        }
+        .number {
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 4px;
+            color: white;
+            background: blue;
+            padding: .4rem .8rem;
+        }
+    }
+    
+    .result-container {
+        width: 100%;
+        min-width: 100%;
+        display: flex;
+        flex-grow: 1; 
+    }
+`
 
 function ActorSearchResults(props: any) {
     const [selected, setSelectedPage] = useState(0);
@@ -13,18 +49,15 @@ function ActorSearchResults(props: any) {
     const sliceToShow =
         props.actors && props.actors.slice(selected * 10, selected * 10 + 10);
     return (
-        <Paper
-            style={{minHeight: "60vh"}}
-            className="w-full shadow-none flex flex-col justify-between"
-        >
-            <div className="flex items-center justify-between px-16 h-64">
-                <Typography className="text-16">Found Actors</Typography>
-                <Typography className="text-11 font-500 rounded-4 text-white bg-blue px-8 py-4">
+        <ActorSearchStyles>
+            <div className="title">
+                <Typography className="found">Found Actors</Typography>
+                <Typography className="number">
                     {props.actors.length + " Actors"}
                 </Typography>
             </div>
-            <div className="w-full min-w-full table-responsive flex-grow">
-                <div className="w-full">
+            <div className="result-container">
+                <div style={{width: '100%'}}>
                     {sliceToShow.map((actor: any) => (
                         <>
                             <SingleResult actor={actor} handleClickTalent={props.handleClickTalent}
@@ -38,7 +71,7 @@ function ActorSearchResults(props: any) {
                 itemCount={props.actors.length}
                 handlePageChange={changePage}
             />
-        </Paper>
+        </ActorSearchStyles>
     );
 }
 

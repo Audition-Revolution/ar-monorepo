@@ -7,6 +7,7 @@ import { withRouter } from "react-router";
 import LightboxModal from "components/shared/LightboxModal";
 import MyDropzone from "components/shared/MyDropzone";
 import { makeStyles } from "@material-ui/styles";
+import styled from "styled-components";
 
 const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
 const SET_PROFILE = require("../../graphql/mutations/profile/SET_PROFILE.graphql");
@@ -19,6 +20,12 @@ const useStyles = makeStyles({
     "object-fit": "scale-down"
   }
 });
+
+const ProfileImageContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+`;
 
 const ProfileImagePage: FC<any> = props => {
   const classes = useStyles();
@@ -85,10 +92,10 @@ const ProfileImagePage: FC<any> = props => {
         ) : (
           <MyDropzone {...props} refetch={refetch} />
         ))}
-      <div className="flex justify-start flex-wrap">
+      <ProfileImageContainer>
         {user.profileImages &&
           user.profileImages.map((img: any, index: number) => (
-            <div className="p-10" key={`${index}${img.s3key}`}>
+            <div style={{padding: '1rem'}} key={`${index}${img.s3key}`}>
               <img
                 className={classes.imageList}
                 src={img.url}
@@ -130,7 +137,7 @@ const ProfileImagePage: FC<any> = props => {
               )}
             </div>
           ))}
-      </div>
+      </ProfileImageContainer>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import {
   Toolbar,
   Typography
 } from "@material-ui/core";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,17 +23,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const FooterTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 .5rem;
+`;
 const Footer = (props: any) => {
   const classes = useStyles();
   return (
     <div className={classes.appBar}>
-      <Toolbar className="p-0">
-        <div className="flex justify-between w-full pl-5 pr-5">
+      <Toolbar style={{padding: 0}}>
+        <FooterTitle>
           <Typography variant={"body2"}>Audition Revolution.v2 Beta</Typography>
           <Typography variant={"body2"}>
             Contact Support: support@auditionrevolution.com
           </Typography>
-        </div>
+        </FooterTitle>
       </Toolbar>
     </div>
   );

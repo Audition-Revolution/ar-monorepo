@@ -1,12 +1,18 @@
 import React, { FC } from "react";
 import { Typography, Chip } from "@material-ui/core";
+import styled from "styled-components";
 
+const BreakdownStyles = styled.div`
+    width: 25%;
+    margin-bottom: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+`
 const Breakdown: React.FC<any> = ({ title, breakdownArray, width }) => {
-  const classWidth = width || "w-sm";
   return (
     <>
       <p>{title}: </p>
-      <div className={`mb-16 ${classWidth} flex flex-wrap`}>
+      <BreakdownStyles>
         {breakdownArray.map(
           (a: string, i: number) =>
             a && (
@@ -22,10 +28,21 @@ const Breakdown: React.FC<any> = ({ title, breakdownArray, width }) => {
               </div>
             )
         )}
-      </div>
+      </BreakdownStyles>
     </>
   );
 };
+
+const ProfileBreakdownStyles = styled.div`
+    margin-top: 6.4rem;
+    .breakdown-group {
+        display: flex;
+        width: 100%;
+        .section {
+            width: 50%;
+        }
+    }
+`;
 
 const ProfileBreakdown: FC<any> = ({ breakdown }) => {
   const ageRange = breakdown.ageRange || ["None"];
@@ -34,22 +51,22 @@ const ProfileBreakdown: FC<any> = ({ breakdown }) => {
   const ethnicity = breakdown.ethnicity || ["None"];
   const vocalRange = breakdown.vocalRange || ["None"];
   return (
-    <div className="mt-64">
+    <ProfileBreakdownStyles>
       <Typography variant="h6" color="inherit">
         Actor Breakdown
       </Typography>
-      <div className="flex">
-        <div className="w-7/12">
+      <div className="breakdown-group">
+        <div className="section">
           <Breakdown title="Age Range" breakdownArray={ageRange} />
           <Breakdown title="Gender" breakdownArray={gender} />
           <Breakdown title="Ethnicity" breakdownArray={ethnicity} />
         </div>
-        <div className="w-6/12">
+        <div className="section">
           <Breakdown title="Unions" breakdownArray={unions} />
           <Breakdown title="Vocal Range" breakdownArray={vocalRange} />
         </div>
       </div>
-    </div>
+    </ProfileBreakdownStyles>
   );
 };
 

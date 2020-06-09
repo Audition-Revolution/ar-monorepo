@@ -15,6 +15,20 @@ import { useHistory } from "react-router";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { GET_TAGS_FOR_OWNER } from "./MyTags";
 import ConfirmationModal from "../../components/shared/ConfirmationModal";
+import styled from "styled-components";
+
+const TagSectionStyles = styled.div`
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  
+  .modal-button {
+    display: flex;
+    align-items: flex-end;
+  }
+`;
 
 const TagSection: FC<any> = ({ tagName, users }) => {
   const { state: {userEmail} } = useContext(GlobalContext);
@@ -39,16 +53,15 @@ const TagSection: FC<any> = ({ tagName, users }) => {
       onChange={() => setOpen(!open)}
     >
       <ExpansionPanelSummary
-        className="p-0"
-        style={{ paddingLeft: "5px", paddingRight: "5px" }}
+        style={{ padding: '0 5px'}}
         expandIcon={<ExpandMoreIcon />}
       >
-        <div className="p-0 flex items-baseline justify-between items-center w-full">
+        <TagSectionStyles>
           <div onClick={() => push(`/tag/${tagName}`)}>
             <Typography variant={"h6"}>{tagName}</Typography>
             <Typography variant={"subtitle2"}>{users.length} actors</Typography>
           </div>
-          <div className={"flex align-end "}>
+          <div className={"modal-button"}>
             {tagName !== "My Talent" && (
               <ConfirmationModal
                 onConfirm={() =>
@@ -76,9 +89,9 @@ const TagSection: FC<any> = ({ tagName, users }) => {
               Email All
             </Button>
           </div>
-        </div>
+        </TagSectionStyles>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails className="pl-0">
+      <ExpansionPanelDetails style={{paddingLeft: 0}}>
         <List>
           {!users && <Typography variant={"body1"}>No Tags Found</Typography>}
           {users &&

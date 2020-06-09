@@ -7,9 +7,8 @@ import {
     MenuItem,
     Typography
 } from "@material-ui/core";
-import clsx from "clsx";
 import {Link} from "react-router-dom";
-import {useAuthStyles, AuthPageSplash} from "./SharedAuth";
+import {useAuthStyles, AuthPageSplash, AuthContainerStyles, AuthCard} from "./SharedAuth";
 import AddressInput from "components/shared/AddressInput";
 import {Formik, Form, Field} from "formik";
 import {CheckboxWithLabel, TextField} from "formik-material-ui";
@@ -138,18 +137,13 @@ function CompanyRegistrationPage(props: any) {
     }
 
     return (
-        <div
-            className={clsx(
-                classes.root,
-                "flex flex-col flex-auto flex-shrink-0 min-h-screen p-24 md:flex-row md:p-0"
-            )}
-        >
+        <AuthContainerStyles className={classes.root}>
             <TermsAndConditions open={open} onClose={handleClose}/>
             <AuthPageSplash/>
 
-            <Card className="w-full max-w-400 mx-auto m-16 md:m-0" square>
-                <CardContent className="flex flex-col items-center justify-center h-full p-32 md:p-48 md:pt-128 ">
-                    <Typography variant="h6" className="md:w-full mb-32">
+            <AuthCard square>
+                <CardContent>
+                    <Typography variant="h6">
                         CREATE AN ACCOUNT
                     </Typography>
 
@@ -159,10 +153,7 @@ function CompanyRegistrationPage(props: any) {
                         onSubmit={handleSubmit}
                     >
                         {props => (
-                            <Form
-                                name="registerForm"
-                                className="flex flex-col justify-center w-full"
-                            >
+                            <Form name="registerForm">
                                 <h1>Company Info</h1>
                                 <FormikTextField
                                     type="text"
@@ -176,7 +167,6 @@ function CompanyRegistrationPage(props: any) {
                                     label="Company Type"
                                     select
                                     variant="outlined"
-                                    className={"mb-16"}
                                     InputLabelProps={{
                                         shrink: true
                                     }}
@@ -223,16 +213,11 @@ function CompanyRegistrationPage(props: any) {
                                     type="password"
                                     name="passwordConfirm"
                                 />
-                                <FormControl className="items-center">
+                                <FormControl>
                                     <Field
                                         Label={{
                                             label: (
-                                                <span>
-                            I read and accept{" "}
-                                                    <a href='javascript:void(0);' onClick={() => setOpen(true)}>
-                              terms and conditions
-                            </a>
-                          </span>
+                                                <span>I read and accept{" "}<a href='javascript:void(0);' onClick={() => setOpen(true)}>terms and conditions</a></span>
                                             )
                                         }}
                                         name="acceptTermsConditions"
@@ -245,7 +230,6 @@ function CompanyRegistrationPage(props: any) {
                                     id="createAccount"
                                     variant="contained"
                                     color="primary"
-                                    className="w-full mx-auto mt-16"
                                     aria-label="Register"
                                     disabled={!props.isValid}
                                     type="submit"
@@ -262,8 +246,8 @@ function CompanyRegistrationPage(props: any) {
                         </Link>
                     </div>
                 </CardContent>
-            </Card>
-        </div>
+            </AuthCard>
+        </AuthContainerStyles>
     );
 }
 

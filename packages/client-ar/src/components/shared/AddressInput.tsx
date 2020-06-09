@@ -49,7 +49,7 @@ class AddressInput extends React.Component<any> {
     render() {
         return (
             <TextField
-                className="mb-16"
+                style={{marginBottom: '1.6rem'}}
                 label={this.props.label}
                 fullWidth
                 type="cityState"

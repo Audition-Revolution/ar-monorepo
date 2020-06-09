@@ -1,63 +1,71 @@
 import React from "react";
-import {
-    Card,
-    CardContent,
-    Theme,
-    Typography
-} from "@material-ui/core";
+import { Card, CardContent, Theme, Typography } from "@material-ui/core";
 import { darken } from "@material-ui/core/styles/colorManipulator";
 import { makeStyles } from "@material-ui/styles";
-import clsx from "clsx";
 import ARLogo from "../../static/AR_Logo.png";
+import {AuthContainerStyles} from "./SharedAuth";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        background:
-            "radial-gradient(" +
-            darken(theme.palette.primary.dark, 0.5) +
-            " 0%, " +
-            theme.palette.primary.dark +
-            " 80%)",
-        color: theme.palette.primary.contrastText
-    }
+  root: {
+    background:
+      "radial-gradient(" +
+      darken(theme.palette.primary.dark, 0.5) +
+      " 0%, " +
+      theme.palette.primary.dark +
+      " 80%)",
+    color: theme.palette.primary.contrastText,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 }));
 
 interface PendingVerificationProps {
-    type: "actor" | "company";
+  type: "actor" | "company";
 }
 
+export const PendingPassCardStyles = styled(Card)`
+  width: 100%;
+  max-width: 38rem;
+  
+  .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3.2rem;
+    text-align: center;
+    
+    img { margin: 3.2rem }
+  }
+`;
+
 function PendingPasswordResetPage(props: PendingVerificationProps) {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <div
-            className={clsx(
-                classes.root,
-                "flex flex-col flex-auto flex-shrink-0 items-center justify-center p-32"
-            )}
-        >
-            <div className="flex flex-col items-center justify-center w-full">
-                <div>
-                    <Card className="w-full max-w-384">
-                        <CardContent className="flex flex-col items-center justify-center p-32 text-center">
-                            <img className="m-32" src={ARLogo} alt="logo" />
+  return (
+    <AuthContainerStyles className={classes.root}>
+        <PendingPassCardStyles>
+          <CardContent>
+            <img src={ARLogo} alt="logo" />
 
-                            <Typography variant="subtitle1" className="mb-16">
-                                Password Reset Complete!
-                            </Typography>
-                                <Typography color="textSecondary" className="max-w-288">
-                                    We've sent you an email with further instructions.
-                                </Typography>
-                                <br />
-                                <Typography color="textSecondary" className="max-w-288">
-                                    Please look out for an email from "support@auditionrevolution.com" to complete your password reset.
-                                </Typography>
-                        </CardContent>
-                    </Card>
-                </div>
-            </div>
-        </div>
-    );
+            <Typography variant="subtitle1">
+              Password Reset Complete!
+            </Typography>
+            <Typography color="textSecondary">
+              We've sent you an email with further instructions.
+            </Typography>
+            <br />
+            <Typography color="textSecondary">
+              Please look out for an email from
+              "support@auditionrevolution.com" to complete your password
+              reset.
+            </Typography>
+          </CardContent>
+        </PendingPassCardStyles>
+    </AuthContainerStyles>
+  );
 }
 
 export default PendingPasswordResetPage;

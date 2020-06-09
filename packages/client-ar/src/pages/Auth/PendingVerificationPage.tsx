@@ -12,6 +12,8 @@ import clsx from "clsx";
 import ARLogo from "../../static/AR_Logo.png";
 import arAxios from "../../utils/axiosHelper";
 import { useSnackbar } from "notistack";
+import {AuthContainerStyles} from "./SharedAuth";
+import {PendingPassCardStyles} from "./PendingPasswordResetPage";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -21,7 +23,11 @@ const useStyles = makeStyles((theme: Theme) => ({
       " 0%, " +
       theme.palette.primary.dark +
       " 80%)",
-    color: theme.palette.primary.contrastText
+    color: theme.palette.primary.contrastText,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }));
 
@@ -44,41 +50,34 @@ function PendingVerificationPage(props: PendingVerificationProps) {
   }
 
   return (
-    <div
-      className={clsx(
-        classes.root,
-        "flex flex-col flex-auto flex-shrink-0 items-center justify-center p-32"
-      )}
-    >
-      <div className="flex flex-col items-center justify-center w-full">
-        <div>
-          <Card className="w-full max-w-384">
-            <CardContent className="flex flex-col items-center justify-center p-32 text-center">
-              <img className="m-32" src={ARLogo} alt="logo" />
+    <AuthContainerStyles className={classes.root}>
+          <PendingPassCardStyles >
+            <CardContent>
+              <img src={ARLogo} alt="logo" />
 
-              <Typography variant="subtitle1" className="mb-16">
+              <Typography variant="subtitle1">
                 Thank you for joining Audition Revolution!
               </Typography>
 
               {props.type === "company" && (
                 <>
-                  <Typography color="textSecondary" className="max-w-288">
+                  <Typography color="textSecondary">
                     You’re almost there! We just sent an email to verify your
                     account. You should receive it soon - be on the lookout!
                   </Typography>
-                  <Typography color="textSecondary" className="max-w-288">
+                  <Typography color="textSecondary">
                     Our Team will be in touch with you soon!
                   </Typography>
                 </>
               )}
               {props.type === "actor" && (
                 <>
-                  <Typography color="textSecondary" className="max-w-288">
+                  <Typography color="textSecondary">
                     You’re almost there! We just sent an email to verify your
                     account. You should receive it soon - be on the lookout!
                   </Typography>
                   <br />
-                  <Typography color="textSecondary" className="max-w-288">
+                  <Typography color="textSecondary">
                     To be sure you receive all notifications from Audition
                     Revolution, whitelist support@auditionrevolution.com and
                     check your spam and promotions folder.
@@ -95,10 +94,8 @@ function PendingVerificationPage(props: PendingVerificationProps) {
                 </>
               )}
             </CardContent>
-          </Card>
-        </div>
-      </div>
-    </div>
+          </PendingPassCardStyles>
+    </AuthContainerStyles>
   );
 }
 

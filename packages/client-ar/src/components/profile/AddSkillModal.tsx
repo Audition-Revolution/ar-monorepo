@@ -12,6 +12,7 @@ import { Form, Formik } from "formik";
 import { FormikTextField } from "../shared/FormikTextField";
 import * as Yup from "yup";
 import { gql } from "apollo-boost";
+import {AddItemModalStyles} from "./AddItemModalStyles";
 
 const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
 
@@ -78,12 +79,9 @@ const AddSkillModal: FC<any> = props => {
                   : "Add Training"}
               </DialogTitle>
               <DialogContent>
-                <Form
-                  name="addSkill"
-                  className="flex flex-col justify-center w-full"
-                >
+                <AddItemModalStyles name="addSkill">
                   <FormikTextField type={"text"} name={"text"} label={"Text"} />
-                </Form>
+                </AddItemModalStyles>
               </DialogContent>
               <DialogActions>
                 <Button onClick={() => toggleOpen(false)} color="secondary">

@@ -14,6 +14,7 @@ import ActorSearchPage from "../Search/ActorSearchPage";
 import CompanyNotes from "./CompanyNotes";
 import LightboxModal from "../../components/shared/LightboxModal";
 import MyTags from "./MyTags";
+import styled from "styled-components";
 
 const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
 
@@ -32,9 +33,47 @@ const useStyles = makeStyles(theme => ({
       " 100%)",
     color: theme.palette.primary.contrastText,
     backgroundSize: "cover",
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark,
+    boxShadow: '0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04)'
   }
 }));
+
+const ActorProfileStyles = styled.div`
+  padding: .5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  .profile-pic {
+    width: 33.3333%;
+  }
+  .profile-info-container {
+    width: 66.6666%;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    height: 100%;
+  }
+  
+  .MuiTabs-root {
+    height: 6.4rem
+  }
+`;
+
+const ResumeSectionStyles = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  @media(min-width: 1220px) {
+    flex-direction: row;
+  }
+  
+  .experience-section {
+    margin-right: 2.4rem;
+    @media(min-width: 1220px) {
+      width: 66.6666%;
+    }
+  }
+`
 
 const ActorProfilePage: FC<any> = props => {
   const classes = useStyles();
@@ -70,13 +109,9 @@ const ActorProfilePage: FC<any> = props => {
         handleClose={() => setOpen(false)}
         images={[{ src: imageUrl }]}
       />
-      <div className={clsx(classes.header) + " shadow-xl"}>
-        <div
-          className={
-            "p-5 flex flex-col-rev items-start justify-start md:flex-row md:items-between "
-          }
-        >
-          <ListItem className={"w-4/12"}>
+      <div className={classes.header}>
+        <ActorProfileStyles>
+          <div className={"profile-pic"}>
             <img
               data-cy="profile-picture"
               alt={user.displayName}
@@ -84,12 +119,12 @@ const ActorProfilePage: FC<any> = props => {
               onClick={() => setOpen(true)}
               src={imageUrl}
             />
-          </ListItem>
-          <div className="w-8/12 flex flex-col items-between h-full">
+          </div>
+          <div className="profile-info-container">
             <ProfileHeader user={user} />
             <ProfileBreakdown breakdown={user.breakdown || {}} />
           </div>
-        </div>
+        </ActorProfileStyles>
         <ProfileSidebar
           user={user}
           auditionView={auditionView}
@@ -106,21 +141,20 @@ const ActorProfilePage: FC<any> = props => {
           textColor="secondary"
           variant="scrollable"
           scrollButtons="off"
-          className="h-64 w-full border-b-1"
         >
-          <Tab className="h-64" label="General Resume" />
-          <Tab className="h-64" label="Photos" />
+          <Tab label="General Resume" />
+          <Tab label="Photos" />
         </Tabs>
         <TabPanel value={selectedTab} index={0}>
-          <div className={"flex justify-between flex-col lg:flex-row"}>
-            <div className={"lg:w-8/12 mr-24"}>
+          <ResumeSectionStyles>
+            <div className={"experience-section"}>
               <ExperienceSection
                 user={user}
                 type={"experience"}
                 readOnly={props.readOnly}
               />
             </div>
-            <div className={"lg:w-4/12"}>
+            <div>
               <ResumeSection
                 type={"training"}
                 title={"Training"}
@@ -138,7 +172,7 @@ const ActorProfilePage: FC<any> = props => {
                 userId={user.id}
               />
             </div>
-          </div>
+          </ResumeSectionStyles>
         </TabPanel>
         <TabPanel value={selectedTab} index={1}>
           <ProfileImagePage userId={id} readOnly={readOnly} />

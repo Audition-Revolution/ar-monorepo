@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Field as FField, Form as FinalForm } from "react-final-form";
 import FormStateToRedux from "../../utils/FormStateToRedux";
 import { Button, Typography } from "@material-ui/core";
+import styled from "styled-components";
 
 const fields = [
   {
@@ -88,8 +89,13 @@ const fields = [
   }
 ];
 
+const CheckBoxWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 const SmartCheckbox: FC<any> = ({ category, option }) => (
-  <label className="m-1">
+  <label style={{margin: '1rem'}}>
     <FField name={category} component="input" type="checkbox" value={option} />{" "}
     {option}
   </label>
@@ -102,7 +108,7 @@ const FormRender: FC<any> = props => (
       .map(field => (
         <div className="spec-container" key={field.title}>
           <Typography variant={"h6"}>{field.title}</Typography>
-          <div className="spec-checkboxes flex flex-wrap">
+          <CheckBoxWrapper className="spec-checkboxes">
             {field.value.map(option => (
               <SmartCheckbox
                 key={option}
@@ -110,7 +116,7 @@ const FormRender: FC<any> = props => (
                 category={field.category}
               />
             ))}
-          </div>
+          </CheckBoxWrapper>
         </div>
       ))}
     {props.button ? (

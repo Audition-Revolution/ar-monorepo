@@ -24,7 +24,9 @@ export const GET_TAGS_FOR_OWNER = gql`
 `;
 const useStyles = makeStyles(() => ({
     root: {
-        minHeight: "80%"
+        minHeight: "80%",
+        padding: '1.6rem',
+        marginTop: '3.6rem'
     }
 }));
 const MyTags = () => {
@@ -51,8 +53,8 @@ const MyTags = () => {
     const tal = tags["My Talent"] ? [...tags["My Talent"]] : [];
     delete tags["My Talent"];
     return (
-        <Container className="h-full">
-            <Paper className={clsx(classes.root, "p-16 mt-36")}>
+        <Container style={{height: '100%'}}>
+            <Paper className={classes.root}>
                 <Typography variant="h5">My Tags</Typography>
                 <List>
                     <TagSection tagName={"My Talent"} users={tal}/>

@@ -14,6 +14,7 @@ import { Link, withRouter } from "react-router-dom";
 import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { GlobalContext } from "globalContext";
 import { gql } from "apollo-boost";
+import styled from "styled-components";
 
 const GET_ORGANIZATIONS_FOR_USER = require("graphql/queries/organization/GET_ORGANIZATIONS_FOR_USER.graphql");
 
@@ -31,6 +32,30 @@ const GET_ACTOR = gql`
         s3Key
         url
       }
+    }
+  }
+`;
+
+const UserMenuStyles = styled.div`
+  .menu-button {
+    height: 6.4rem;
+    margin-left: .8rem;
+  }
+  
+  .menu-name {
+    display: none;
+    margin-left: 1.2rem;
+    @media (min-width: 960px) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .menu-icon {
+  font-size: 1.6rem;
+  margin-left: 1.2rem;
+  display: none; 
+    @media (min-width: 768px) {
+      display: flex;
     }
   }
 `;
@@ -87,8 +112,8 @@ function UserMenu(props: any) {
   };
 
   return (
-    <div>
-      <Button className="h-64 ml-8" onClick={userMenuClick}>
+    <UserMenuStyles>
+      <Button className="menu-button" onClick={userMenuClick}>
         <Badge badgeContent={notificationNumber} color="primary">
           {user.data.photoURL ? (
             <Avatar alt="user photo" src={user.data.photoURL} />
@@ -96,16 +121,16 @@ function UserMenu(props: any) {
             <Avatar >{user.data.displayName[0]}</Avatar>
           )}
         </Badge>
-        <div className="hidden md:flex flex-col ml-12 items-start">
-          <Typography component="span" className="normal-case font-600 flex">
+        <div className="menu-name items-start">
+          <Typography component="span">
             {user.data.displayName}
           </Typography>
-          <Typography className="text-11 capitalize" color="textSecondary">
+          <Typography color="textSecondary">
             {userType.join(", ")}
           </Typography>
         </div>
 
-        <TsIcon className="text-16 ml-12 hidden sm:flex" variant="action">
+        <TsIcon className="menu-icon" variant="action">
           keyboard_arrow_down
         </TsIcon>
       </Button>
@@ -127,10 +152,10 @@ function UserMenu(props: any) {
         }}
       >
         <MenuItem component={Link} to="/profile" onClick={userMenuClose}>
-          <ListItemIcon className="min-w-40">
+          <ListItemIcon style={{minWidth: '4rem'}}>
             <Icon>account_circle</Icon>
           </ListItemIcon>
-          <ListItemText className="pl-0" primary="My Profile" />
+          <ListItemText style={{paddingLeft: 0}} primary="My Profile" />
         </MenuItem>
         <MenuItem
           disabled={true}
@@ -138,12 +163,12 @@ function UserMenu(props: any) {
           to="/profile/notifications"
           onClick={userMenuClose}
         >
-          <ListItemIcon className="min-w-40">
+          <ListItemIcon style={{minWidth: '4rem'}}>
             <Badge badgeContent={notificationNumber} color="primary">
               <Icon>notifications</Icon>
             </Badge>
           </ListItemIcon>
-          <ListItemText className="pl-0" primary="My Notifications" />
+          <ListItemText style={{paddingLeft: 0}} primary="My Notifications" />
         </MenuItem>
         <MenuItem
           disabled={true}
@@ -151,10 +176,10 @@ function UserMenu(props: any) {
           to="/profile/auditions"
           onClick={userMenuClose}
         >
-          <ListItemIcon className="min-w-40">
+          <ListItemIcon style={{minWidth: '4rem'}}>
             <Icon>audiotrack</Icon>
           </ListItemIcon>
-          <ListItemText className="pl-0" primary="My Auditions" />
+          <ListItemText style={{paddingLeft: 0}} primary="My Auditions" />
         </MenuItem>
         {userType.includes("theatre") && (
           <>
@@ -166,10 +191,10 @@ function UserMenu(props: any) {
                 to={`/organization/${org.id}/projects`}
                 onClick={userMenuClose}
               >
-                <ListItemIcon className="min-w-40">
+                <ListItemIcon style={{minWidth: '4rem'}}>
                   <Icon>group</Icon>
                 </ListItemIcon>
-                <ListItemText className="pl-0" primary={org.name} />
+                <ListItemText style={{paddingLeft: 0}} primary={org.name} />
               </MenuItem>
             ))}
           </>
@@ -179,10 +204,10 @@ function UserMenu(props: any) {
             window.location.href = "mailto:support@auditionrevolution.com";
           }}
         >
-          <ListItemIcon className="min-w-40">
+          <ListItemIcon style={{minWidth: '4rem'}}>
             <Icon>contact_support</Icon>
           </ListItemIcon>
-          <ListItemText className="pl-0" primary="Contact Support" />
+          <ListItemText style={{paddingLeft: 0}} primary="Contact Support" />
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -190,13 +215,13 @@ function UserMenu(props: any) {
             logOut();
           }}
         >
-          <ListItemIcon className="min-w-40">
+          <ListItemIcon style={{minWidth: '4rem'}}>
             <Icon>exit_to_app</Icon>
           </ListItemIcon>
-          <ListItemText className="pl-0" primary="Logout" />
+          <ListItemText style={{paddingLeft: 0}} primary="Logout" />
         </MenuItem>
       </Popover>
-    </div>
+    </UserMenuStyles>
   );
 }
 

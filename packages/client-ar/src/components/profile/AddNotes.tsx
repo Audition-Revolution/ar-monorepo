@@ -39,7 +39,7 @@ const AddNotes: FC<AddNotesProps> = (props) => {
     return (
         <>
             <Trigger onClick={() => setNotesOpen(true)}/>
-            <Dialog className={"mh-1/2"} open={notesOpen} fullWidth={true}>
+            <Dialog style={{minHeight: '50%'}} open={notesOpen} fullWidth={true}>
                 <DialogTitle>Notes on {props.user.displayName}</DialogTitle>
                 <DialogContent>
                     <NotesOnActor userId={props.user.id} auditionId={""}/>

@@ -39,7 +39,7 @@ const AddTags: FC<AddTagsProps> = (props) => {
     return (
         <>
             <Trigger onClick={() => setTagsOpen(true)}/>
-            <Dialog className={"mh-1/2"} open={tagsOpen} fullWidth={true}>
+            <Dialog style={{minHeight: "50%"}} open={tagsOpen} fullWidth={true}>
                 <DialogTitle>Tags for {props.user.displayName}</DialogTitle>
                 <DialogContent>
                     <Typography variant={"body2"}>

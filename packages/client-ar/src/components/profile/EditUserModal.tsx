@@ -16,12 +16,14 @@ import {
   Typography
 } from "@material-ui/core";
 import React from "react";
-import { Field, Form, Formik } from "formik";
+import { Field, Formik } from "formik";
 import { FormikTextField } from "../shared/FormikTextField";
 import AddressInput from "../shared/AddressInput";
 import { Select } from "formik-material-ui";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
+import {AddItemModalStyles} from "./AddItemModalStyles";
+import styled from "styled-components";
 
 const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
 
@@ -52,6 +54,23 @@ const useStyles = makeStyles((theme: Theme) => {
     }
   });
 });
+
+const DialogStyles = styled(DialogContent)`
+  display: flex;
+  flex-direction: column:
+  align-items: center;
+  justify-content: center;
+  
+  .height {
+    display: flex; 
+    justify-content: space-between;
+  }
+  
+  #createAccount {
+    width: 100%;
+    margin-top: 1.6rem;
+  }
+`;
 
 function EditUserModal({ user }: any) {
   const classes = useStyles();
@@ -122,12 +141,8 @@ function EditUserModal({ user }: any) {
             onClose={handleClose}
           >
             <DialogTitle>Update User</DialogTitle>
-            <DialogContent className="flex flex-col items-center justify-center">
-              <Typography variant="h6" className="md:w-full mb-32"></Typography>
-              <Form
-                name="registerForm"
-                className="flex flex-col justify-center w-full"
-              >
+            <DialogStyles>
+              <AddItemModalStyles name="registerForm">
                 <FormikTextField
                   type="text"
                   name="firstName"
@@ -183,7 +198,7 @@ function EditUserModal({ user }: any) {
                     <MenuItem value={"private"}>Private</MenuItem>
                   </Field>
                 </FormControl>
-                <div className={"flex justify-between"}>
+                <div className={'height'}>
                   <FormikTextField type="text" name="feet" label="Feet" />
                   <FormikTextField type="text" name="inches" label="Inches" />
                 </div>
@@ -242,7 +257,6 @@ function EditUserModal({ user }: any) {
                     id="createAccount"
                     variant="contained"
                     color="primary"
-                    className="w-full mx-auto mt-16"
                     aria-label="Register"
                     disabled={!props.isValid}
                     type="submit"
@@ -250,8 +264,8 @@ function EditUserModal({ user }: any) {
                     Update User
                   </Button>
                 </DialogActions>
-              </Form>
-            </DialogContent>
+              </AddItemModalStyles>
+            </DialogStyles>
           </Dialog>
         )}
       </Formik>

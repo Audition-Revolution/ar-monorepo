@@ -12,6 +12,7 @@ import Divider from "@material-ui/core/Divider";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { gql } from "apollo-boost";
+import styled from "styled-components";
 
 const REMOVE_EXPERIENCE = require("../../graphql/mutations/profile/REMOVE_EXPERIENCE.graphql");
 const REORDER_EXPERIENCE = gql`
@@ -30,6 +31,17 @@ export const GET_EXPERIENCE = gql`
       director
       index
     }
+  }
+`;
+
+
+const ListItemTextStyles = styled.div`
+  display: flex;
+  width: 100%;
+  
+  .header {
+    font-size: 1.8rem;
+    width: 25%;
   }
 `;
 
@@ -70,7 +82,7 @@ const ExperienceList: FC<any> = ({
   useEffect(() => {
     const sorted = experiences.sort((a: any, b: any) => a.index - b.index);
     setExpItems(sorted);
-  }, [experiences.length, experiences]);
+  }, [experiences]);
 
   const onDragEnd = (result: any) => {
     const newOrder: any[] = [...expItems];
@@ -124,31 +136,29 @@ const ExperienceList: FC<any> = ({
             </Button>
           )
         }
-        className={"pb-0"}
+        style={{paddingBottom: 0}}
       />
-      <CardContent className={"pt-0"}>
+      <CardContent style={{paddingTop: 0}}>
         <DragDropContext onDragEnd={onDragEnd}>
           {reorderExperienceItems ? (
             <Droppable droppableId="experienceItemsDroppable">
               {(provided: any) => (
                 <List {...provided.droppableProps} ref={provided.innerRef}>
                   <ListItem>
-                    <ListItemText>
-                      <div className={"flex"}>
-                        <div className={"text-lg w-1/4"}>
-                          <strong>Project: </strong>
-                        </div>
-                        <div className={"text-lg w-1/4"}>
-                          <strong>Role:</strong>
-                        </div>
-                        <div className={"text-lg w-1/4"}>
-                          <strong>Company: </strong>
-                        </div>
-                        <div className={"text-lg w-1/4"}>
-                          <strong>Director: </strong>
-                        </div>
+                    <ListItemTextStyles>
+                      <div className={"header"}>
+                        <strong>Project: </strong>
                       </div>
-                    </ListItemText>
+                      <div className={"header"}>
+                        <strong>Role:</strong>
+                      </div>
+                      <div className={"header"}>
+                        <strong>Company: </strong>
+                      </div>
+                      <div className={"header"}>
+                        <strong>Director: </strong>
+                      </div>
+                    </ListItemTextStyles>
                   </ListItem>
                   {expItems.map((exp: any, index: number) => (
                     <Draggable key={exp.id} draggableId={exp.id} index={index}>
@@ -160,18 +170,18 @@ const ExperienceList: FC<any> = ({
                         >
                           <ListItem
                             alignItems="flex-start"
-                            className={"mt-12 mb-12"}
+                            style={{margin: '1.2rem 0'}}
                           >
                             <ListItemIcon>
                               <DragIndicatorIcon />
                             </ListItemIcon>
                             <ListItemText
                               primary={
-                                <div className={"flex"}>
-                                  <div className={"w-1/4"}>{exp.project}</div>
-                                  <div className={"w-1/4"}>{exp.role}</div>
-                                  <div className={"w-1/4"}>{exp.company}</div>
-                                  <div className={"w-1/4"}>{exp.director}</div>
+                                <div style={{display: 'flex'}}>
+                                  <div style={{width: '25%'}}>{exp.project}</div>
+                                  <div style={{width: '25%'}}>{exp.role}</div>
+                                  <div style={{width: '25%'}}>{exp.company}</div>
+                                  <div style={{width: '25%'}}>{exp.director}</div>
                                 </div>
                               }
                               secondary={exp.description}
@@ -189,33 +199,31 @@ const ExperienceList: FC<any> = ({
           ) : (
             <List>
               <ListItem>
-                <ListItemText>
-                  <div className={"flex"}>
-                    <div className={"text-lg w-1/4"}>
-                      <strong>Project: </strong>
-                    </div>
-                    <div className={"text-lg w-1/4"}>
-                      <strong>Role:</strong>
-                    </div>
-                    <div className={"text-lg w-1/4"}>
-                      <strong>Company: </strong>
-                    </div>
-                    <div className={"text-lg w-1/4"}>
-                      <strong>Director: </strong>
-                    </div>
+                <ListItemTextStyles>
+                  <div className={"header"}>
+                    <strong>Project: </strong>
                   </div>
-                </ListItemText>
+                  <div className={"header"}>
+                    <strong>Role:</strong>
+                  </div>
+                  <div className={"header"}>
+                    <strong>Company: </strong>
+                  </div>
+                  <div className={"header"}>
+                    <strong>Director: </strong>
+                  </div>
+                </ListItemTextStyles>
               </ListItem>
               {expItems.map((exp: any, i: number) => (
                 <React.Fragment key={i}>
                   <ListItem alignItems="flex-start">
                     <ListItemText
                       primary={
-                        <div className={"flex"}>
-                          <div className={"w-1/4"}>{exp.project}</div>
-                          <div className={"w-1/4"}>{exp.role}</div>
-                          <div className={"w-1/4"}>{exp.company}</div>
-                          <div className={"w-1/4"}>{exp.director}</div>
+                        <div style={{display: 'flex'}}>
+                          <div style={{width: '25%'}}>{exp.project}</div>
+                          <div style={{width: '25%'}}>{exp.role}</div>
+                          <div style={{width: '25%'}}>{exp.company}</div>
+                          <div style={{width: '25%'}}>{exp.director}</div>
                         </div>
                       }
                       secondary={exp.description}

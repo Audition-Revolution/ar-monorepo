@@ -2,17 +2,41 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 import { transformPhoneNumber } from "../../utils";
 import capitalize from "../../utils/stringUtils";
+import styled from "styled-components";
+
+const ProfileHeaderStyles = styled.div`
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media(min-width: 960px){
+    flex-direction:row;
+    align-items: space-between;
+  }
+  
+  .profile-info {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: flex-start;
+  }
+  
+  .representation {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: flex-end;
+  }
+`;
 
 const ProfileHeader = ({ user }: any) => {
   const feet = Math.floor(user.heightInches / 12);
   const inches = user.heightInches % 12;
   return (
-    <div
-      className={
-        "flex flex-1 flex-col items-center justify-center md:flex-row md:items-between"
-      }
-    >
-      <div className="flex flex-1 flex-col items-between justify-start">
+    <ProfileHeaderStyles>
+      <div className="profile-info">
         <div>
           <Typography
             data-cy="profile-display-name"
@@ -39,7 +63,7 @@ const ProfileHeader = ({ user }: any) => {
         </div>
       </div>
 
-      <div className="flex flex-col items-between justify-end">
+      <div className="representation">
         {user.representation && (
           <div>
             <Typography
@@ -78,7 +102,7 @@ const ProfileHeader = ({ user }: any) => {
           </div>
         )}
       </div>
-    </div>
+    </ProfileHeaderStyles>
   );
 };
 

@@ -5,6 +5,7 @@ import ExperienceList from "../../components/profile/ExperienceList";
 import React, { FC, useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import styled from "styled-components";
 
 const CHANGE_EXPERIENCE_ORDER = gql`
   mutation changeExperienceOrder($newExperiences: [ExperienceType!]!) {
@@ -44,6 +45,13 @@ const experienceData: any = {
   }
 };
 
+const ExperienceSectionStyles = styled.div`
+  .exp-title {
+    display: flex;
+    justify-content: space-between;
+  }
+`;
+
 const ExperienceSection: FC<IExperienceSection> = props => {
   const { user } = props;
   const [reorderExperience, setReorderExperience] = useState(false);
@@ -75,8 +83,8 @@ const ExperienceSection: FC<IExperienceSection> = props => {
   };
 
   return (
-    <>
-      <div className={"flex justify-between"}>
+    <ExperienceSectionStyles>
+      <div className={"exp-title"}>
         <Typography variant={"h4"}>Experience</Typography>
         {!props.readOnly && (
           <div>
@@ -100,7 +108,7 @@ const ExperienceSection: FC<IExperienceSection> = props => {
       >
         <ExperienceList id={user.id} />
       </MakeDraggable>
-    </>
+    </ExperienceSectionStyles>
   );
 };
 
@@ -127,7 +135,7 @@ export function MakeDraggable(props: IMakeDraggable) {
                 >
                   {(provided, snapshot) => (
                     <div
-                      className={"mt-12 mb-12"}
+                        style={{margin: '1.2rem 0'}}
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
@@ -147,7 +155,7 @@ export function MakeDraggable(props: IMakeDraggable) {
         </Droppable>
       ) : (
         props.items.map((experience: any, index: number) => (
-          <div className={"mt-12 mb-12"} key={experience.id || index}>
+          <div style={{margin: '1.2rem 0'}} key={experience.id || index}>
             {React.cloneElement(props.children, {
               draggable: props.draggable,
               readOnly: props.readOnly,

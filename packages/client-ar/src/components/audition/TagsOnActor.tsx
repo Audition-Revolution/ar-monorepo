@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Autocomplete } from "@material-ui/lab";
 import {GET_TAGS_FOR_OWNER} from "../../pages/Profile/MyTags";
+import styled from "styled-components";
 
 const GET_DISTINCT_TAGS = gql`
   {
@@ -32,6 +33,21 @@ const DELETE_TAG = gql`
     deleteTag(input: $input)
   }
 `;
+
+const TagsOnActorStyle = styled.div`
+  .tags-form {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .MuiAutocomplete-root {
+    width: 75%;
+  }
+  
+  .tag-chip {
+    margin: .5rem;
+  }
+`
 
 const TagsOnActor: FC<any> = ({ userId }) => {
   const [value, setValue] = useState("");
@@ -85,10 +101,9 @@ const TagsOnActor: FC<any> = ({ userId }) => {
   };
 
   return (
-    <div>
-      <div className={"flex justify-between"}>
+    <TagsOnActorStyle>
+      <div className={"tags-form"}>
         <Autocomplete
-          className={"w-3/4"}
           options={options}
           onInputChange={(e: any, newVal: any) => setValue(newVal)}
           onChange={(e: any, newVal: any) => setValue(newVal)}
@@ -102,7 +117,7 @@ const TagsOnActor: FC<any> = ({ userId }) => {
       <div>
         {actorTags.map((tag: string) => (
           <Chip
-            className={"m-2"}
+            className="tag-chip"
             size="small"
             label={tag}
             onDelete={() =>
@@ -118,7 +133,7 @@ const TagsOnActor: FC<any> = ({ userId }) => {
           />
         ))}
       </div>
-    </div>
+    </TagsOnActorStyle>
   );
 };
 

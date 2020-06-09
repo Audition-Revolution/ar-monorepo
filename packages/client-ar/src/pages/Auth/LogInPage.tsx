@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {
     Button,
-    Card,
     CardContent,
     Divider,
     TextField,
@@ -9,9 +8,8 @@ import {
 } from "@material-ui/core";
 import {useMutation} from "@apollo/react-hooks";
 import {Link} from "react-router-dom";
-import clsx from "clsx";
 import {GlobalContext} from "globalContext";
-import {useAuthStyles, AuthPageSplash} from "./SharedAuth";
+import {useAuthStyles, AuthPageSplash, AuthContainerStyles, AuthCard} from "./SharedAuth";
 import {useSnackbar} from "notistack";
 import {ApolloError} from "apollo-boost";
 
@@ -70,27 +68,22 @@ function LoginPage(props: any) {
     }
 
     return (
-        <div
-            className={clsx(
-                classes.root,
-                "flex flex-col flex-auto flex-shrink-0 min-h-screen p-24 md:flex-row md:p-0"
-            )}
-        >
+        <AuthContainerStyles className={classes.root}>
             <AuthPageSplash/>
-            <Card className="w-full max-w-400 mx-auto m-16 md:m-0" square>
-                <CardContent className="flex flex-col items-center justify-center h-full p-32 md:p-48 md:pt-128 ">
-                    <Typography variant="h6" className="md:w-full mb-32">
+            <AuthCard square>
+                <CardContent>
+                    <Typography variant="h6">
                         LOGIN TO YOUR ACCOUNT
                     </Typography>
 
                     <form
                         name="loginForm"
                         noValidate
-                        className="flex flex-col justify-center w-full"
                         onSubmit={handleSubmit}
                     >
                         <TextField
                             id="login-email"
+                            style={{marginBottom: '1.6rem'}}
                             className="mb-16"
                             label="Email"
                             autoFocus
@@ -105,7 +98,7 @@ function LoginPage(props: any) {
 
                         <TextField
                             id="login-password"
-                            className="mb-16"
+                            style={{marginBottom: '1.6rem'}}
                             label="Password"
                             type="password"
                             name="password"
@@ -116,7 +109,7 @@ function LoginPage(props: any) {
                             fullWidth
                         />
 
-                        <div className="mt-8 mb-8 flex items-center justify-between">
+                        <div className="forgot-password">
                             <Link className="font-medium" to={"/passwordReset"}>
                                 Forgot Password?
                             </Link>
@@ -134,13 +127,13 @@ function LoginPage(props: any) {
                         </Button>
                     </form>
 
-                    <div className="my-24 flex items-center justify-center">
-                        <Divider className="w-32"/>
-                        <span className="mx-8 font-bold">OR</span>
-                        <Divider className="w-32"/>
+                    <div className="divider">
+                        <Divider/>
+                        <span>OR</span>
+                        <Divider/>
                     </div>
 
-                    <div className="flex flex-col items-center justify-center pt-32 pb-24">
+                    <div className="no-account">
                         <span className="font-medium">Don't have an account?</span>
                         <Link className="font-medium" to="/register">
                             Actor? Create an account
@@ -150,8 +143,8 @@ function LoginPage(props: any) {
                         </Link>
                     </div>
                 </CardContent>
-            </Card>
-        </div>
+            </AuthCard>
+        </AuthContainerStyles>
     );
 }
 

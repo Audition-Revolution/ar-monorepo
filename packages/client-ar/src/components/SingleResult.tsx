@@ -4,6 +4,7 @@ import {useQuery} from "@apollo/react-hooks";
 import {GET_TAGS_FOR_ACTOR} from "./audition/TagsOnActor";
 import AddTags from "./profile/AddTags";
 import AddNotes from "./profile/AddNotes";
+import styled from "styled-components";
 
 interface SingleResultProps {
     actor: Record<string, any>,
@@ -36,6 +37,41 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
+const SingleResultStyles = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: .3rem 0;
+    
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: .8rem;
+        padding-right: 0rem;
+        margin: 2px;
+        width: 80px; 
+        height: 100px;
+    }
+    
+    .information-container {
+        width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-left: .25rem;
+        flex-direction: column;
+        display: flex;
+    }
+    
+    .contact-info {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        margin-right: 1.6rem;
+    }
+`;
 
 const SingleResult: FC<SingleResultProps> = ({actor, handleClickTalent, includeEmail}) => {
     const classes = useStyles();
@@ -45,11 +81,8 @@ const SingleResult: FC<SingleResultProps> = ({actor, handleClickTalent, includeE
     const tags = data?.getTagsForActor?.tags;
 
     return (
-        <div
-            className="w-full flex content-between  mt-3 mb-3"
-            key={actor.id}
-        >
-            <div style={{margin: '2px', width: '80px', height: '100px'}} className="flex justify-center items-center pl-8 pr-0" onClick={() => handleClickTalent(actor.id)}>
+        <SingleResultStyles key={actor.id}>
+            <div className="image-container" onClick={() => handleClickTalent(actor.id)}>
                 <img
                     alt={`${actor.firstName} ${actor.lastName} profile`}
                     src={actor.profilePicture}
@@ -58,13 +91,10 @@ const SingleResult: FC<SingleResultProps> = ({actor, handleClickTalent, includeE
             </div>
             <div
                 onClick={() => handleClickTalent(actor.id)}
-                className="pl-1 w-1/2 flex flex-col align-center truncate font-600">
-                <div className={"flex justify-between"}>
-                    <Typography variant="h6">
-                        {actor.firstName} {actor.lastName}
-                    </Typography>
-
-                </div>
+                className="information-container">
+                <Typography variant="h6">
+                    {actor.firstName} {actor.lastName}
+                </Typography>
                 {actor.city && actor.state && (
                     <Typography variant="body1">
                         {actor.city}, {actor.state}
@@ -79,7 +109,7 @@ const SingleResult: FC<SingleResultProps> = ({actor, handleClickTalent, includeE
                             {tags?.map((tagName: string) => (
                                 <Chip
                                     key={tagName}
-                                    className={'ml-1 mr-1'}
+                                    style={{margin: '0 .25rem'}}
                                     size={'small'}
                                     label={tagName}
                                     color="primary"
@@ -90,7 +120,7 @@ const SingleResult: FC<SingleResultProps> = ({actor, handleClickTalent, includeE
                     ) : ''}
                 </div>
             </div>
-            <div className={'w-1/2 flex flex-col text-right mr-16'}>
+            <div className={'contact-info'}>
                 {includeEmail && (
                     <Typography variant="body1">
                         Email:{'  '}
@@ -98,7 +128,7 @@ const SingleResult: FC<SingleResultProps> = ({actor, handleClickTalent, includeE
                            href={`mailto://${actor.email}}`}>{actor.email}</a>
                     </Typography>
                 )}
-                <div className={'w-3/8'}>
+                <div>
                     <AddTags user={actor}
                              trigger={(props: any) => <Button style={{marginRight: '.4rem'}} variant={"outlined"}
                                                               color={'primary'} onClick={props.onClick}>Add
@@ -109,7 +139,7 @@ const SingleResult: FC<SingleResultProps> = ({actor, handleClickTalent, includeE
                 </div>
 
             </div>
-        </div>
+        </SingleResultStyles>
     )
 };
 

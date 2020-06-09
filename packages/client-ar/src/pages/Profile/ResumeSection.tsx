@@ -15,6 +15,7 @@ import { useMutation } from "@apollo/react-hooks";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { MakeDraggable } from "./ExperienceSection";
+import styled from "styled-components";
 
 interface IResumeSection {
   title: string;
@@ -40,6 +41,13 @@ const REORDER_SKILL = gql`
   ) {
     reorderSkillOrTraining(type: $type, skillOrder: $skillOrder)
   }
+`;
+
+const ResumeHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: .8rem;
+  margin-bottom: .8rem;
 `;
 
 const ResumeSection: FC<IResumeSection> = props => {
@@ -80,7 +88,7 @@ const ResumeSection: FC<IResumeSection> = props => {
 
   return (
     <>
-      <div className={"flex justify-between mt-8 mb-8"}>
+      <ResumeHeader>
         <Typography variant={"h4"}>{props.title}</Typography>
         {!props.readOnly && (
           <div>
@@ -90,7 +98,7 @@ const ResumeSection: FC<IResumeSection> = props => {
             <AddSkillModal type={props.type} />
           </div>
         )}
-      </div>
+      </ResumeHeader>
       <div>
         <Card>
           <CardContent>
@@ -117,7 +125,7 @@ function ResumeListItem(props: any) {
   });
   return (
     <>
-      <ListItem alignItems="flex-start" className={"mt-12 mb-12"}>
+      <ListItem alignItems="flex-start"  style={{margin: "1.2rem 0"}}>
         <Typography variant={"h6"}>{props.text}</Typography>
         {!props.readOnly && (
           <ListItemSecondaryAction>

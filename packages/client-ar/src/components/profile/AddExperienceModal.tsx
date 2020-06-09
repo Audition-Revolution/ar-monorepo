@@ -14,8 +14,12 @@ import { Form, Formik } from "formik";
 import { FormikTextField } from "../shared/FormikTextField";
 import * as Yup from "yup";
 import { GET_EXPERIENCE } from "./ExperienceList";
+import styled from "styled-components";
+import {AddItemModalStyles} from "./AddItemModalStyles";
 
 const ADD_EXPERIENCE = require("../../graphql/mutations/profile/ADD_EXPERIENCE.graphql");
+
+
 
 const experiences = [
   {
@@ -108,10 +112,7 @@ const AddExperienceModal: FC<any> = () => {
             <>
               <DialogTitle>Add An Experience</DialogTitle>
               <DialogContent>
-                <Form
-                  name="addExperience"
-                  className="flex flex-col justify-center w-full"
-                >
+                <AddItemModalStyles name="addExperience">
                   <div>
                     <h3>Choose Experience Type</h3>
                     {experiences.map((experience: any) => (
@@ -148,7 +149,7 @@ const AddExperienceModal: FC<any> = () => {
                     name={"director"}
                     label={"Director"}
                   />
-                </Form>
+                </AddItemModalStyles>
               </DialogContent>
               <DialogActions>
                 <Button onClick={() => toggleOpen(false)} color="secondary">

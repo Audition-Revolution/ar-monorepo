@@ -14,7 +14,29 @@ import {
 import UserMenu from "components/shared/UserMenu";
 import ArLogo from "../../static/AR_Logo.png";
 import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
+import styled from "styled-components";
 
+const AppBarStyles = styled(AppBar)`
+  display: flex;
+  position: relative;
+  z-index: 10;
+  
+  .image-container {
+    display: flex;
+    flex-grow: 1;
+    justify-content: start;
+    align-items: center;
+    img {
+      width: 12.8rem;
+      maxHeight: 6.4rem;
+      padding-left: 1.2rem
+    }
+  }
+  
+  .right-side {
+    display: flex;
+  }
+`;
 const Header = (props: any) => {
   const { state: {userType} } = useContext(GlobalContext);
   const { push } = useHistory();
@@ -33,16 +55,13 @@ const Header = (props: any) => {
   };
 
   return (
-    <AppBar id="fuse-toolbar" position="relative" className="flex relative z-10" color="default">
-      <Toolbar className="p-0">
-        <div
-          className="flex flex-1 justify-start align-center"
-          onClick={handleLogoClick}
-        >
-          <img className="w-128 max-h-64 pl-12" src={ArLogo} alt="logo" />
+    <AppBarStyles id="fuse-toolbar" position="relative" color="default">
+      <Toolbar style={{padding: 0}}>
+        <div className="image-container" onClick={handleLogoClick}>
+          <img src={ArLogo} alt="logo" />
         </div>
 
-        <div className="flex">
+        <div className="right-side">
           {userType?.includes("theatre") && (
             <>
               <Button onClick={event => setDbButtonToggle(event.currentTarget)}>
@@ -72,17 +91,17 @@ const Header = (props: any) => {
                   <ListItemIcon className="min-w-40">
                     <Icon>search</Icon>
                   </ListItemIcon>
-                  <ListItemText className="pl-0" primary="Actor Search" />
+                  <ListItemText style={{paddingLeft: 0}} primary="Actor Search" />
                 </MenuItem>
                 <MenuItem
                   component={Link}
                   to={`/profile/tags`}
                   onClick={() => setDbButtonToggle(null)}
                 >
-                  <ListItemIcon className="min-w-40">
+                  <ListItemIcon style={{minWidth: '4rem'}}>
                     <LocalOfferOutlinedIcon />
                   </ListItemIcon>
-                  <ListItemText className="pl-0" primary={"My Tags"} />
+                  <ListItemText style={{paddingLeft:0}} primary={"My Tags"} />
                 </MenuItem>
               </Popover>
             </>
@@ -90,7 +109,7 @@ const Header = (props: any) => {
           <UserMenu />
         </div>
       </Toolbar>
-    </AppBar>
+    </AppBarStyles>
   );
 };
 
