@@ -10,11 +10,10 @@ import {
   FormControlLabel,
   Radio
 } from "@material-ui/core";
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
 import { FormikTextField } from "../shared/FormikTextField";
 import * as Yup from "yup";
 import { GET_EXPERIENCE } from "./ExperienceList";
-import styled from "styled-components";
 import {AddItemModalStyles} from "./AddItemModalStyles";
 
 const ADD_EXPERIENCE = require("../../graphql/mutations/profile/ADD_EXPERIENCE.graphql");

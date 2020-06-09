@@ -10,12 +10,28 @@ import createGenerateClassName from "@material-ui/styles/createGenerateClassName
 import clsx from "clsx";
 import theme from './themeProvider'
 import { SnackbarProvider } from "notistack";
-import { Button, LinearProgress, Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { useAppStyles } from "./AppStyles";
+import styled from "styled-components";
 
 const TOKEN_CHECK = require("./graphql/queries/TOKEN_CHECK.graphql");
 
 const generateClassName = createGenerateClassName();
+
+const AppStyles = styled.div`
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  overflow: hidden;
+  
+  .main {
+    position: relative;
+    min-height: 100vh;
+    flex: 1 1 auto;
+    flex-direction: column;
+    display: flex;  
+  }
+`;
 
 const App = () => {
   const { data, loading } = useQuery(TOKEN_CHECK);
@@ -41,12 +57,9 @@ const App = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center">
-        <Typography className="text-20 mb-16" color="textSecondary">
-          Loading...
-        </Typography>
-        <LinearProgress className="w-xs" color="secondary" />
-      </div>
+      <AppStyles>
+        <div>Loading...</div>
+      </AppStyles>
     );
   } else {
     return (
@@ -60,9 +73,9 @@ const App = () => {
             )}
           >
             <div id="fuse-layout" className={clsx(classes.root)}>
-              <div className="flex flex-1 flex-col overflow-hidden">
+              <AppStyles>
                 <NavBar />
-                <div className="flex-grow-1 flex flex-auto flex-col min-h-screen relative">
+                <div className="main">
                   <div
                     style={{
                       marginBottom: "64px",
@@ -74,7 +87,7 @@ const App = () => {
                   </div>
                   <Footer />
                 </div>
-              </div>
+              </AppStyles>
             </div>
           </SnackbarProvider>
         </ThemeProvider>

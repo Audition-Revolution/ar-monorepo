@@ -1,14 +1,12 @@
 import React from "react";
 import {
   Button,
-  Card,
   CardContent,
   Theme,
   Typography
 } from "@material-ui/core";
 import { darken } from "@material-ui/core/styles/colorManipulator";
 import { makeStyles } from "@material-ui/styles";
-import clsx from "clsx";
 import ARLogo from "../../static/AR_Logo.png";
 import arAxios from "../../utils/axiosHelper";
 import { useSnackbar } from "notistack";

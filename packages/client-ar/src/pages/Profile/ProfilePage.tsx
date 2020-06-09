@@ -3,8 +3,7 @@ import ProfileSidebar from "../../components/profile/ProfileSidebar";
 import ProfileBreakdown from "../../components/profile/ProfileBreakdown";
 import { useQuery } from "@apollo/react-hooks";
 import { GlobalContext } from "../../globalContext";
-import { ListItem, makeStyles, Tab, Tabs } from "@material-ui/core";
-import clsx from "clsx";
+import { makeStyles, Tab, Tabs } from "@material-ui/core";
 import TabPanel from "components/shared/TabPanel";
 import ProfileImagePage from "./ProfileImagePage";
 import ProfileHeader from "./ProfileHeader";
@@ -182,16 +181,27 @@ const ActorProfilePage: FC<any> = props => {
   );
 };
 
+const CompanyProfileStyle = styled.div`
+  display: flex;
+  .search {
+    margin-left: 1.0rem
+    width: 66.6666%
+  }
+  .notes{
+    width: 33.3333%
+  }
+`
+
 const CompanyProfile = () => (
-  <div className={"flex"}>
-    <div className={"ml-10 w-8/12"}>
+  <CompanyProfileStyle>
+    <div className={"search"}>
       <ActorSearchPage fullWidth={true} />
     </div>
-    <div className={"w-4/12"}>
+    <div className={"notes"}>
       <CompanyNotes />
       <MyTags />
     </div>
-  </div>
+  </CompanyProfileStyle>
 );
 
 const ProfilePage: FC<any> = props => {

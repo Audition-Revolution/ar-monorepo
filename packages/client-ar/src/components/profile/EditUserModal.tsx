@@ -12,8 +12,7 @@ import {
   ListItemText,
   makeStyles,
   MenuItem,
-  Theme,
-  Typography
+  Theme
 } from "@material-ui/core";
 import React from "react";
 import { Field, Formik } from "formik";
@@ -69,6 +68,9 @@ const DialogStyles = styled(DialogContent)`
   #createAccount {
     width: 100%;
     margin-top: 1.6rem;
+  }
+  .MuiInputBase-root {
+    margin-bottom: 5px;
   }
 `;
 

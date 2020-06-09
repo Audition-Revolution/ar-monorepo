@@ -109,10 +109,23 @@ form label {
     display: inline;
 }
 
+a {
+    color: inherit;
+    text-decoration: inherit;
+    background-color: transparent;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+audio, canvas, embed, iframe, img, object, svg, video {
+     display: block;
+     vertical-align: middle;
+}
+
 @import 'print.css';
 
 @import 'tables.css';
 
 @import 'react-table.css';
-
-@import 'tailwind.base.css';

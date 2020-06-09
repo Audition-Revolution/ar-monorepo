@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogTitle
 } from "@material-ui/core";
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
 import { FormikTextField } from "../shared/FormikTextField";
 import * as Yup from "yup";
 import { gql } from "apollo-boost";

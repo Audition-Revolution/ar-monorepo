@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {Container, List, makeStyles, Paper, Typography} from "@material-ui/core";
-import clsx from "clsx";
 import TagSection from "./TagSection";
 import {gql} from "apollo-boost";
 

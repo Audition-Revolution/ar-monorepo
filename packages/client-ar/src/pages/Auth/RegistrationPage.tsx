@@ -1,12 +1,10 @@
 import React, {useContext} from "react";
 import {
     Button,
-    Card,
     CardContent,
     FormControl,
     Typography
 } from "@material-ui/core";
-import clsx from "clsx";
 import {Link} from "react-router-dom";
 import {useAuthStyles, AuthPageSplash, AuthContainerStyles, AuthCard} from "./SharedAuth";
 import AddressInput from "components/shared/AddressInput";
