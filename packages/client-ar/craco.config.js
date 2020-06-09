@@ -1,5 +1,3 @@
-const {POSTCSS_MODES} = require("@craco/craco");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require('path');
 module.exports = {
     eslint: {
@@ -19,7 +17,7 @@ module.exports = {
         },
         plugins: [
             // new DynamicCdnWebpackPlugin(),
-            new BundleAnalyzerPlugin(),
+            // new BundleAnalyzerPlugin(),
         ],
         configure: (config) => {
             config.module.rules[2].oneOf.unshift({
