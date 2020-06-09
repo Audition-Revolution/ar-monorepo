@@ -238,7 +238,7 @@ function CompanyRegistrationPage(props: any) {
                             </Form>
                         )}
                     </Formik>
-                    <div className="flex flex-col items-center justify-center pt-32 pb-24">
+                    <div className="no-account">
                         <span className="font-medium">Already have an account?</span>
                         <Link className="font-medium" to="/login">
                             Login

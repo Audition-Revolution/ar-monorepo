@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import { useAuthStyles, AuthPageSplash } from "./SharedAuth";
+import {useAuthStyles, AuthPageSplash, AuthCard, AuthContainerStyles} from "./SharedAuth";
 import arAxios from "utils/axiosHelper";
 import { useSnackbar } from "notistack";
 
@@ -74,17 +74,12 @@ function PasswordResetPage(props: any) {
   };
 
   return (
-    <div
-      className={clsx(
-        classes.root,
-        "flex flex-col flex-auto flex-shrink-0 min-h-screen p-24 md:flex-row md:p-0"
-      )}
-    >
+    <AuthContainerStyles className={classes.root}>
       <AuthPageSplash />
 
-      <Card className="w-full max-w-400 mx-auto m-16 md:m-0" square>
-        <CardContent className="flex flex-col items-center justify-center h-full p-32 md:p-48 md:pt-128 ">
-          <Typography variant="h6" className="md:w-full mb-32">
+      <AuthCard square>
+        <CardContent>
+          <Typography variant="h6">
             RESET YOUR PASSWORD
           </Typography>
           {isLoading && <CircularProgress color="secondary" />}
@@ -92,11 +87,11 @@ function PasswordResetPage(props: any) {
             <form
               name="recoverForm"
               noValidate
-              className="flex flex-col justify-center w-full"
               onSubmit={handleSubmit}
             >
               <TextField
                 className="mb-16"
+                style={{marginBottom: '1.6rem'}}
                 label="Email"
                 autoFocus
                 type="email"
@@ -115,7 +110,7 @@ function PasswordResetPage(props: any) {
               {props.match.params.token && (
                 <>
                   <TextField
-                    className="mb-16"
+                    style={{marginBottom: '1.6rem'}}
                     label="New Password"
                     autoFocus
                     type="password"
@@ -129,7 +124,7 @@ function PasswordResetPage(props: any) {
                     fullWidth
                   />
                   <TextField
-                    className="mb-16"
+                    style={{marginBottom: '1.6rem'}}
                     label="Confirm New Password"
                     autoFocus
                     type="password"
@@ -148,7 +143,6 @@ function PasswordResetPage(props: any) {
               <Button
                 variant="contained"
                 color="primary"
-                className="w-224 mx-auto mt-16"
                 aria-label="Reset"
                 disabled={!isFormValid()}
                 type="submit"
@@ -159,14 +153,14 @@ function PasswordResetPage(props: any) {
               </Button>
             </form>
           )}
-          <div className="flex flex-col items-center justify-center pt-32 pb-24">
+          <div className="no-account">
             <Link className="font-medium" to="/login">
               Go back to login
             </Link>
           </div>
         </CardContent>
-      </Card>
-    </div>
+      </AuthCard>
+    </AuthContainerStyles>
   );
 }
 

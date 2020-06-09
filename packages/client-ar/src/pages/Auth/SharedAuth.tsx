@@ -104,15 +104,34 @@ export const AuthCard = styled(Card)`
    
 `;
 
+const AuthSplashStyles = styled.div`
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-grow: 0;
+    color: white;
+    padding: 1.6rem;
+    @media (min-width 960px){
+        padding: 12.8rem;
+        align-items: flex-start;
+        flex-shrink: 0;
+        flex-grow: 1;
+        text-align: left
+    }
+    
+    img {
+        width: 25.6rem;
+        margin-bottom: 3.2rem;
+    }
+`;
+
 export const AuthPageSplash = () => {
   return (
-    <div className="flex flex-col flex-grow-0 items-center text-white p-16 text-center md:p-128 md:items-start md:flex-shrink-0 md:flex-1 md:text-left">
-      <div>
-        <img className="w-256 mb-32" src={ArLogo} alt="logo" />
-      </div>
+    <AuthSplashStyles>
+        <img src={ArLogo} alt="logo" />
 
       <div>
-        <Typography variant="h3" color="inherit" className="font-light">
+        <Typography variant="h3" color="inherit">
           Welcome Back to Audition Revolution!
         </Typography>
       </div>
@@ -121,11 +140,10 @@ export const AuthPageSplash = () => {
         <Typography
           variant="subtitle1"
           color="inherit"
-          className="max-w-512 mt-16"
         >
           Sign In Or Create New Account!
         </Typography>
       </div>
-    </div>
+    </AuthSplashStyles>
   );
 };

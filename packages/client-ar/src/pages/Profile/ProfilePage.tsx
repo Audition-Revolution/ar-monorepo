@@ -72,6 +72,11 @@ const ResumeSectionStyles = styled.div`
       width: 66.6666%;
     }
   }
+  .skill-section {
+    @media(min-width: 1220px) {
+      width: 33.3333%;
+    }
+  }
 `
 
 const ActorProfilePage: FC<any> = props => {
@@ -153,7 +158,7 @@ const ActorProfilePage: FC<any> = props => {
                 readOnly={props.readOnly}
               />
             </div>
-            <div>
+            <div className={"skill-section"}>
               <ResumeSection
                 type={"training"}
                 title={"Training"}

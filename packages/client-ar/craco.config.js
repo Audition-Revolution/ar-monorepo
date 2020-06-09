@@ -1,23 +1,7 @@
 const {POSTCSS_MODES} = require("@craco/craco");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const tailwindcss = require('tailwindcss');
-const purgecss = require('@fullhuman/postcss-purgecss');
-const cssnano = require('cssnano');
-const autoprefixer = require('autoprefixer');
 const path = require('path');
 module.exports = {
-    style: {
-        postcss: {
-            // mode: POSTCSS_MODES.file
-            plugins: [
-                tailwindcss(),
-                cssnano({
-                    preset: 'default',
-                }),
-                autoprefixer
-            ],
-        }
-    },
     eslint: {
         "plugins": [
             "cypress"
