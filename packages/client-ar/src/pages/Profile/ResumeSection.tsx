@@ -16,6 +16,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { MakeDraggable } from "./ExperienceSection";
 import styled from "styled-components";
+import {REMOVE_SKILL, REORDER_SKILL} from "../../graphql/Skill";
 
 interface IResumeSection {
   title: string;
@@ -27,21 +28,6 @@ interface IResumeSection {
 }
 
 const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
-
-const REMOVE_SKILL = gql`
-  mutation removeSkillOrTraining($type: String!, $text: String!) {
-    removeSkillOrTraining(type: $type, text: $text)
-  }
-`;
-
-const REORDER_SKILL = gql`
-  mutation reorderSkillsOrTraining(
-    $type: String!
-    $skillOrder: [ExperienceOrder!]
-  ) {
-    reorderSkillOrTraining(type: $type, skillOrder: $skillOrder)
-  }
-`;
 
 const ResumeHeader = styled.div`
   display: flex;

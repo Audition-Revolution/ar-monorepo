@@ -13,8 +13,8 @@ import {
 import { Formik } from "formik";
 import { FormikTextField } from "../shared/FormikTextField";
 import * as Yup from "yup";
-import { GET_EXPERIENCE } from "./ExperienceList";
 import {AddItemModalStyles} from "./AddItemModalStyles";
+import {GET_EXPERIENCE} from "../../graphql/Experience";
 
 const ADD_EXPERIENCE = require("../../graphql/mutations/profile/ADD_EXPERIENCE.graphql");
 

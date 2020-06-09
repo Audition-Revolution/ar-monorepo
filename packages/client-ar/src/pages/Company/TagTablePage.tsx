@@ -24,7 +24,7 @@ import {
   TextField
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { gql } from "apollo-boost";
+import {GET_TAGS_FOR_TAG_PAGE} from "../../graphql/getTagsForTagPage";
 
 // Create an editable cell renderer
 const EditableCell = ({
@@ -223,39 +223,6 @@ const TagTable = ({ actors }: any) => {
   );
 };
 
-const GET_TAGS_FOR_TAG_PAGE = gql`
-  {
-    getTagsForTagsPage {
-      id
-      tag
-      for {
-        id
-        firstName
-        lastName
-        email
-        representation
-        city
-        state
-        gender
-        phoneNumber
-        website
-        eyeColor
-        hairColor
-        heightInches
-        breakdown {
-          ageRange
-          gender
-          unions
-          ethnicity
-          vocalRange
-        }
-        profilePicture {
-          url
-        }
-      }
-    }
-  }
-`;
 const TagTablePage = (props: any) => {
   const { loading, data } = useQuery(GET_TAGS_FOR_TAG_PAGE);
   const currentTag = props.match.params.tagName;

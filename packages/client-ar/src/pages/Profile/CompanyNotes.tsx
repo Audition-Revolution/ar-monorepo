@@ -1,21 +1,7 @@
 import React, { FC } from "react";
-import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { Card, CardContent, Container, Typography } from "@material-ui/core";
-
-const GET_ALL_NOTES = gql`
-  query getAllNotes {
-    getAllNotes {
-      id
-      for {
-        id
-        firstName
-        lastName
-      }
-      text
-    }
-  }
-`;
+import {GET_ALL_NOTES} from "../../graphql/getAllNotes";
 
 const CompanyNotes: FC<any> = () => {
   const { data, loading } = useQuery(GET_ALL_NOTES);

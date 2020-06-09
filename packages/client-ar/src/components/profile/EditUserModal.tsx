@@ -19,10 +19,10 @@ import { Field, Formik } from "formik";
 import { FormikTextField } from "../shared/FormikTextField";
 import AddressInput from "../shared/AddressInput";
 import { Select } from "formik-material-ui";
-import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import {AddItemModalStyles} from "./AddItemModalStyles";
 import styled from "styled-components";
+import {UPDATE_USER} from "../../graphql/updateUser";
 
 const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
 
@@ -40,11 +40,6 @@ const validationSchema = Yup.object({
   phoneNumber: Yup.string().matches(phoneRegExp, "Phone number is not valid")
 });
 
-const UPDATE_USER = gql`
-  mutation updateUser($data: UserDataDTO!) {
-    updateUser(data: $data)
-  }
-`;
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

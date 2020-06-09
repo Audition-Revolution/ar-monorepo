@@ -2,25 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {Container, List, makeStyles, Paper, Typography} from "@material-ui/core";
 import TagSection from "./TagSection";
-import {gql} from "apollo-boost";
+import {GET_TAGS_FOR_OWNER} from "../../graphql/Tags";
 
-export const GET_TAGS_FOR_OWNER = gql`
-    {
-        getTagsForOwner {
-            id
-            tag
-            for {
-                id
-                firstName
-                lastName
-                email
-                profilePicture {
-                    url
-                }
-            }
-        }
-    }
-`;
 const useStyles = makeStyles(() => ({
     root: {
         minHeight: "80%",

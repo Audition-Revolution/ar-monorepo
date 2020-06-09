@@ -13,9 +13,9 @@ import { GlobalContext } from "../../globalContext";
 import { useMutation } from "@apollo/react-hooks";
 import { useHistory } from "react-router";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { GET_TAGS_FOR_OWNER } from "./MyTags";
 import ConfirmationModal from "../../components/shared/ConfirmationModal";
 import styled from "styled-components";
+import {GET_TAGS_FOR_OWNER} from "../../graphql/Tags";
 
 const TagSectionStyles = styled.div`
   padding: 0;

@@ -11,16 +11,10 @@ import {
 import { Formik } from "formik";
 import { FormikTextField } from "../shared/FormikTextField";
 import * as Yup from "yup";
-import { gql } from "apollo-boost";
 import {AddItemModalStyles} from "./AddItemModalStyles";
+import {ADD_SKILL} from "../../graphql/AddSkillOrTraining";
 
 const GET_USER = require("../../graphql/queries/user/GET_USER.graphql");
-
-export const ADD_SKILL = gql`
-  mutation addSkillOrTraining($type: String!, $text: String!) {
-    addSkillOrTraining(type: $type, text: $text)
-  }
-`;
 
 const initialValues = {
   text: ""

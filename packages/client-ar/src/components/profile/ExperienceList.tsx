@@ -11,29 +11,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Divider from "@material-ui/core/Divider";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { gql } from "apollo-boost";
 import styled from "styled-components";
+import {GET_EXPERIENCE, REORDER_EXPERIENCE} from "../../graphql/Experience";
 
 const REMOVE_EXPERIENCE = require("../../graphql/mutations/profile/REMOVE_EXPERIENCE.graphql");
-const REORDER_EXPERIENCE = gql`
-  mutation reorderExperience($data: ReorderExperienceDTO!) {
-    reorderExperience(data: $data)
-  }
-`;
-
-export const GET_EXPERIENCE = gql`
-  query getExperience($data: ReorderExperienceDTO!) {
-    getExperience(data: $data) {
-      id
-      role
-      project
-      company
-      director
-      index
-    }
-  }
-`;
-
 
 const ListItemTextStyles = styled.div`
   display: flex;

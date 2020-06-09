@@ -4,14 +4,9 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import ExperienceList from "../../components/profile/ExperienceList";
 import React, { FC, useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 import styled from "styled-components";
+import {CHANGE_EXPERIENCE_ORDER} from "../../graphql/Experience";
 
-const CHANGE_EXPERIENCE_ORDER = gql`
-  mutation changeExperienceOrder($newExperiences: [ExperienceType!]!) {
-    changeExperienceOrder(newExperiences: $newExperiences)
-  }
-`;
 interface IExperienceSection {
   readOnly: boolean;
   user: any;

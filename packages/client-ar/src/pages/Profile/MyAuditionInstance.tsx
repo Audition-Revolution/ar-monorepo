@@ -1,46 +1,9 @@
 import React, { useState } from "react";
 import GoBackButton from "../../components/shared/GoBackButton";
-import { gql } from "apollo-boost";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { useParams } from "react-router";
 import { Typography } from "@material-ui/core";
-
-const GET_MY_INSTANCE = gql`
-  query getInstance($instanceId: String!) {
-    getInstance(instanceId: $instanceId) {
-      id
-      decision
-      audition {
-        id
-        name
-        auditionType
-        requirementSummary
-        address
-        startDate
-        description
-      }
-      timeSlot {
-        id
-        startTime
-        endTime
-      }
-      questions {
-        id
-        text
-        answer {
-          id
-          text
-        }
-      }
-    }
-  }
-`;
-
-const UPDATE_ANSWER = gql`
-  mutation updateAnswer($answerId: String!, $text: String!) {
-    updateAnswer(answerId: $answerId, text: $text)
-  }
-`;
+import {GET_MY_INSTANCE, UPDATE_ANSWER} from "../../graphql/miscQueries";
 
 const AnswerInput = ({ question }: any) => {
   const { instanceId } = useParams();

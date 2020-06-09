@@ -1,38 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import { Button, Chip, TextField } from "@material-ui/core";
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 import { Autocomplete } from "@material-ui/lab";
-import {GET_TAGS_FOR_OWNER} from "../../pages/Profile/MyTags";
 import styled from "styled-components";
-
-const GET_DISTINCT_TAGS = gql`
-  {
-    getDistinctTags {
-      tags
-    }
-  }
-`;
-
-const CREATE_TAG = gql`
-  mutation createTag($input: CreateTagDTO!) {
-    createTag(input: $input)
-  }
-`;
-
-export const GET_TAGS_FOR_ACTOR = gql`
-  query getTags($id: String!) {
-    getTagsForActor(id: $id) {
-      tags
-    }
-  }
-`;
-
-const DELETE_TAG = gql`
-  mutation deleteTag($input: CreateTagDTO!) {
-    deleteTag(input: $input)
-  }
-`;
+import {CREATE_TAG, DELETE_TAG, GET_DISTINCT_TAGS, GET_TAGS_FOR_ACTOR, GET_TAGS_FOR_OWNER} from "../../graphql/Tags";
 
 const TagsOnActorStyle = styled.div`
   .tags-form {
