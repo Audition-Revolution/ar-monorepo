@@ -1,8 +1,8 @@
-import {Injectable} from "@nestjs/common";
-import {InjectRepository} from "@nestjs/typeorm";
-import {Brackets, Repository} from "typeorm";
-import {S3Service} from "../s3/s3.service";
-import {Training} from "./Training.entity";
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Brackets, Repository } from "typeorm";
+import { S3Service } from "../s3/s3.service";
+import { Training } from "./Training.entity";
 import {
     CommercialExperience,
     FilmExperience,
@@ -11,11 +11,12 @@ import {
     TelevisionExperience,
     TheatreExperience,
 } from "./Experience.entity";
-import {SpecialSkill} from "./SpecialSkills.entity";
-import {BreakdownAttribute} from "../common/breakdown/BreakdownAttribute.entity";
-import {ActorNote} from "./features/actor-note/ActorNote.entity";
-import {ActorTag} from "./features/actor-tag/ActorTag.entity";
-import {User} from "./User.entity";
+import { SpecialSkill } from "./SpecialSkills.entity";
+import { BreakdownAttribute } from "../common/breakdown/BreakdownAttribute.entity";
+import { ActorNote } from "./features/actor-note/ActorNote.entity";
+import { ActorTag } from "./features/actor-tag/ActorTag.entity";
+import { User } from "./User.entity";
+import { UserType } from "../../modules/user/User.entity";
 
 @Injectable()
 export class UserSearchService {
@@ -59,13 +60,13 @@ export class UserSearchService {
     async searchTag(searchVal: string, ownerId: string, ownerEmail: string) {
         const notes = this.actorNoteRepo.createQueryBuilder("note")
             .select("DISTINCT on (note.forId) note.forId as userId")
-            .where("LOWER(note.text) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
-            .andWhere("note.ownerId = :owner", {owner: ownerId})
+            .where("LOWER(note.text) LIKE LOWER(:search)", { search: "%" + searchVal + "%" })
+            .andWhere("note.ownerId = :owner", { owner: ownerId })
             .getRawMany();
         const tag = this.actorTagRepo.createQueryBuilder("note")
             .select("DISTINCT on (note.forId) note.forId as userId")
-            .where("LOWER(note.tag) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
-            .andWhere("note.ownerId = :owner", {owner: ownerId})
+            .where("LOWER(note.tag) LIKE LOWER(:search)", { search: "%" + searchVal + "%" })
+            .andWhere("note.ownerId = :owner", { owner: ownerId })
             .getRawMany();
         const unique = (value, index, self) => {
             return self.indexOf(value) === index;
@@ -91,20 +92,20 @@ export class UserSearchService {
     async searchKeyword(searchVal: string, breakdown, ownerEmail: string) {
         const skills = this.skillRepo.createQueryBuilder("skill")
             .select("DISTINCT on (skill.userId) skill.userId as userId")
-            .where("LOWER(skill.text) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
+            .where("LOWER(skill.text) LIKE LOWER(:search)", { search: "%" + searchVal + "%" })
             .getRawMany();
         const training = this.trainingRepo.createQueryBuilder("training")
             .select("DISTINCT on (training.userId) training.userId as userId")
-            .where("LOWER(training.text) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
+            .where("LOWER(training.text) LIKE LOWER(:search)", { search: "%" + searchVal + "%" })
             .getRawMany();
         const experiences = ["theatreRepo", "musicalTheatreRepo", "operaRepo", "filmRepo", "televisionRepo", "commercialRepo"];
         const queries = experiences.map((repo) => {
             return this[repo].createQueryBuilder("exp")
                 .select("DISTINCT on (exp.userId) exp.userId as userId")
-                .where("LOWER(exp.project) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
-                .orWhere("LOWER(exp.role) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
-                .orWhere("LOWER(exp.company) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
-                .orWhere("LOWER(exp.director) LIKE LOWER(:search)", {search: "%" + searchVal + "%"})
+                .where("LOWER(exp.project) LIKE LOWER(:search)", { search: "%" + searchVal + "%" })
+                .orWhere("LOWER(exp.role) LIKE LOWER(:search)", { search: "%" + searchVal + "%" })
+                .orWhere("LOWER(exp.company) LIKE LOWER(:search)", { search: "%" + searchVal + "%" })
+                .orWhere("LOWER(exp.director) LIKE LOWER(:search)", { search: "%" + searchVal + "%" })
                 .getRawMany();
         });
         const unique = (value, index, self) => {
@@ -126,7 +127,7 @@ export class UserSearchService {
 
         results = this.verifiedOrImportedFromTheatreDatabase(results, ownerEmail);
         results = await results.getManyAndCount();
-        console.log(results)
+        console.log(results);
         return await this.formatResults(results);
     }
 
@@ -135,11 +136,11 @@ export class UserSearchService {
         // The .having line is the difference between inclusive and exclusive results
         let results = await this.userRepo
             .createQueryBuilder("user")
-            .select(["user.id", "user.firstName", "user.lastName", "user.email", "user.city", "user.state"])
+            .select(["user.id", "user.firstName", "user.lastName", "user.email", "user.city", "user.state", "user.userType"])
             .leftJoinAndSelect("user.profileImages", "userImage")
             .leftJoinAndSelect("user.breakdown", "breakdown");
         results = this.verifiedOrImportedFromTheatreDatabase(results, ownerEmail);
-        results.andWhere("LOWER(user.displayName) LIKE LOWER(:displayName)", {displayName: "%" + searchVal + "%"});
+        results.andWhere("LOWER(user.displayName) LIKE LOWER(:displayName)", { displayName: "%" + searchVal + "%" });
         if (breakdown.eyeColor && breakdown.eyeColor.length) {
             results.andWhere("(user.eyeColor in (:...eyeColor))").setParameter("eyeColor", breakdown.eyeColor.map(e => e.toLowerCase()));
         }
@@ -241,14 +242,15 @@ export class UserSearchService {
                     // .having('COUNT(distinct inner_breakdown.value) >= :vocalLength')
                     .getQuery();
                 return `"user"."id" in (${finishedQuery})`;
-
             }).setParameter("vocalRange", breakdown.vocalRange);
         }
         try {
             const sql = results.getSql();
             console.log(sql);
             const found = await results.getManyAndCount();
-            return await this.formatResults(found);
+            const result = await this.formatResults(found);
+            console.log("Final result");
+            return result.filter((user: User) => user.userType.includes(UserType.actor));
         } catch (err) {
             throw new Error(err.message);
         }

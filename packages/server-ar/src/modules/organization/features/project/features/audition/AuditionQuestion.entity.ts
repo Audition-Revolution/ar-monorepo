@@ -1,6 +1,5 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Field, ObjectType} from "type-graphql";
-import {AuditionAnswers} from "./AuditionAnswer.entity";
 import {Audition} from "./Audition.entity";
 
 @ObjectType()
@@ -14,9 +13,9 @@ export class AuditionQuestion {
     @Column()
     text: string;
 
-    @Field(() => AuditionAnswers, {nullable: true})
-    @OneToMany(() => AuditionAnswers, i => i.question)
-    answers: AuditionAnswers;
+    // @Field(() => AuditionAnswers, {nullable: true})
+    // @OneToMany(() => AuditionAnswers, i => i.question)
+    answers: any;
 
     @Column()
     auditionId: string;

@@ -78,7 +78,6 @@ type AuditionCollateral {
 type AuditionQuestion {
   id: String!
   text: String!
-  answers: AuditionAnswers
   audition: Audition!
 }
 
