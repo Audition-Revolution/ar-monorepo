@@ -110,7 +110,7 @@ export class UserService {
     async findByEmail(email: string): Promise<User> {
         return await this.userRepo.findOne({
             where: { email },
-            select: ["id", "firstName", "lastName", "displayName", "email", "userType", "theatreVerified", "verified"],
+            select: ["id", "firstName", "lastName", "displayName", "email", "userType", "theatreVerified", "verified", 'importSourceEmails'],
             cache: true,
         });
     }

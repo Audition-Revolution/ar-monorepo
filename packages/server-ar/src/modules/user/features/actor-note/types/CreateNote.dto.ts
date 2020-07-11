@@ -9,5 +9,5 @@ export class CreateNoteDTO {
     @Field()
     for: string;
     @Field()
-    audition: string;
+    audition?: string;
 }
