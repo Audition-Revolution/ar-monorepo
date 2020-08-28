@@ -140,7 +140,7 @@ export class UserSearchService {
             .leftJoinAndSelect("user.profileImages", "userImage")
             .leftJoinAndSelect("user.breakdown", "breakdown");
         results = this.verifiedOrImportedFromTheatreDatabase(results, ownerEmail);
-        results.andWhere("LOWER(user.displayName) LIKE LOWER(:displayName)", { displayName: "%" + searchVal + "%" });
+        results.andWhere("LOWER(CONCAT(user.firstName, ' ', user.lastName)) LIKE LOWER(:displayName)", { displayName: "%" + searchVal + "%" });
         if (breakdown.eyeColor && breakdown.eyeColor.length) {
             results.andWhere("(user.eyeColor in (:...eyeColor))").setParameter("eyeColor", breakdown.eyeColor.map(e => e.toLowerCase()));
         }
